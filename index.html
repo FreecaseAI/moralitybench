@@ -509,6 +509,29 @@ footer { border-top: 1px solid var(--border); padding: 2.5rem 0; margin-top: 3re
         <span class="foundation-tag tag-relativism">Relativism</span>
       </div>
       <p style="font-size:0.8rem;color:var(--text3)">Classification: High/Low split on each subscale → 4 ethical ideologies</p>
+
+      <!-- Ideology explanations -->
+      <div style="margin-top:1.25rem;padding-top:1rem;border-top:1px solid var(--border)">
+        <h4 style="font-size:0.85rem;font-weight:600;margin-bottom:0.75rem;color:var(--text)">The Four Ethical Ideologies</h4>
+        <div style="display:grid;gap:0.6rem">
+          <div style="display:flex;gap:0.75rem;align-items:flex-start">
+            <span style="display:inline-block;min-width:8px;height:8px;border-radius:50%;background:var(--authority);margin-top:6px"></span>
+            <div><strong style="color:var(--authority)">Situationist</strong> <span style="font-size:0.8rem;color:var(--text3)">(High Idealism + High Relativism)</span><br><span style="font-size:0.85rem;color:var(--text2)">Rejects universal moral rules but insists harm is always wrong. Believes context matters and rigid codes can cause damage. "It depends, but we should always try to prevent suffering."</span></div>
+          </div>
+          <div style="display:flex;gap:0.75rem;align-items:flex-start">
+            <span style="display:inline-block;min-width:8px;height:8px;border-radius:50%;background:var(--care);margin-top:6px"></span>
+            <div><strong style="color:var(--care)">Absolutist</strong> <span style="font-size:0.8rem;color:var(--text3)">(High Idealism + Low Relativism)</span><br><span style="font-size:0.85rem;color:var(--text2)">Believes in universal moral principles AND that harm is always wrong. Rules are inviolate. The expected default for safety-trained models. Most common classification in this benchmark.</span></div>
+          </div>
+          <div style="display:flex;gap:0.75rem;align-items:flex-start">
+            <span style="display:inline-block;min-width:8px;height:8px;border-radius:50%;background:var(--loyalty);margin-top:6px"></span>
+            <div><strong style="color:var(--loyalty)">Subjectivist</strong> <span style="font-size:0.8rem;color:var(--text3)">(Low Idealism + High Relativism)</span><br><span style="font-size:0.85rem;color:var(--text2)">Moral judgments depend on personal values, not universal rules. Some harm is acceptable. "Everyone has their own morality." No model in this benchmark scored as Subjectivist.</span></div>
+          </div>
+          <div style="display:flex;gap:0.75rem;align-items:flex-start">
+            <span style="display:inline-block;min-width:8px;height:8px;border-radius:50%;background:var(--proportionality);margin-top:6px"></span>
+            <div><strong style="color:var(--proportionality)">Exceptionist</strong> <span style="font-size:0.8rem;color:var(--text3)">(Low Idealism + Low Relativism)</span><br><span style="font-size:0.85rem;color:var(--text2)">Universal rules exist, but exceptions can be made. Some harm is acceptable when circumstances warrant it. Pragmatic — often associated with utilitarian reasoning.</span></div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 
@@ -582,23 +605,7 @@ footer { border-top: 1px solid var(--border); padding: 2.5rem 0; margin-top: 3re
   </div>
 </section>
 
-<!-- ════════════════ SUGGESTIONS ════════════════ -->
-<section>
-  <div class="suggestion-card">
-    <h3>💡 Suggestions for Future Versions</h3>
-    <ul>
-      <li><strong>Temperature sweeps</strong> — Run each model at temp 0, 0.5, and 1.0 to measure consistency vs. moral "noise"</li>
-      <li><strong>System prompt variants</strong> — Test with "You are a helpful assistant" vs. "You are an ethical philosopher" vs. no system prompt</li>
-      <li><strong>Moral reasoning chains</strong> — Let models explain their answers (not just Likert), then score the reasoning quality with MCT-style analysis</li>
-      <li><strong>Trolley problems</strong> — Classic utilitarian/deontological dilemmas as a third instrument category</li>
-      <li><strong>Cross-cultural norms</strong> — Compare LLM profiles against non-WEIRD human populations (Ghana, India, Japan)</li>
-      <li><strong>Adversarial probing</strong> — Rephrase items with different framings to test robustness of moral positions</li>
-      <li><strong>Cost-per-moral-point</strong> — Like LiveBench's cost metrics: what's the API cost to establish a model's full moral profile?</li>
-      <li><strong>Longitudinal tracking</strong> — Re-run monthly to detect if model updates shift moral profiles</li>
-      <li><strong>Community submissions</strong> — Let researchers submit additional instruments and model results for peer review</li>
-    </ul>
-  </div>
-</section>
+
 
 <!-- ════════════════ SPONSOR ════════════════ -->
 <div class="sponsor-bar">
