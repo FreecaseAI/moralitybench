@@ -218,8 +218,8 @@ footer { border-top: 1px solid var(--border); padding: 2.5rem 0; margin-top: 3re
   <div class="hero-stats">
     <div class="hero-stat"><div class="num">56</div><div class="label">Test Items</div></div>
     <div class="hero-stat"><div class="num">2</div><div class="label">Instruments</div></div>
-    <div class="hero-stat"><div class="num">10</div><div class="label">Models Tested</div></div>
-    <div class="hero-stat"><div class="num">560</div><div class="label">Data Points</div></div>
+    <div class="hero-stat"><div class="num">13</div><div class="label">Models Tested</div></div>
+    <div class="hero-stat"><div class="num">728</div><div class="label">Data Points</div></div>
   </div>
 </section>
 
@@ -227,7 +227,7 @@ footer { border-top: 1px solid var(--border); padding: 2.5rem 0; margin-top: 3re
 <section id="leaderboard">
   <div class="section-header">
     <h2>Leaderboard</h2>
-    <p>10 models ranked by moral profile similarity to human population norms (US/UK, N > 1,000). Lower distance = closer to human.</p>
+    <p>13 models ranked by moral profile similarity to human population norms (US/UK, N > 1,000). Lower distance = closer to human.</p>
   </div>
 
   <!-- Metric cards -->
@@ -239,8 +239,8 @@ footer { border-top: 1px solid var(--border); padding: 2.5rem 0; margin-top: 3re
     </div>
     <div class="card metric-card">
       <div class="metric-label">Most Situationist</div>
-      <div class="metric-value" style="font-size:1.25rem">DeepSeek V4.1</div>
-      <div class="metric-sub">Only model classified Situationist</div>
+      <div class="metric-value" style="font-size:1.25rem">DeepSeek + Nemotron</div>
+      <div class="metric-sub">4 models classified Situationist</div>
     </div>
     <div class="card metric-card">
       <div class="metric-label">Most Refusals</div>
@@ -288,6 +288,19 @@ footer { border-top: 1px solid var(--border); padding: 2.5rem 0; margin-top: 3re
         </tr>
         <tr>
           <td><span class="rank rank-2">2</span></td>
+          <td><div class="model-name">Nemotron 3 Ultra 550B</div><div class="model-provider">NVIDIA</div></td>
+          <td><strong>0.18</strong></td>
+          <td><span class="score-bar"><span class="score-bar-fill" style="width:83%"></span><span class="score-bar-value">4.17</span></span></td>
+          <td><span class="score-bar"><span class="score-bar-fill" style="width:53%"></span><span class="score-bar-value">2.67</span></span></td>
+          <td><span class="score-bar"><span class="score-bar-fill" style="width:70%"></span><span class="score-bar-value">3.50</span></span></td>
+          <td><span class="score-bar"><span class="score-bar-fill" style="width:60%"></span><span class="score-bar-value">3.00</span></span></td>
+          <td><span class="score-bar"><span class="score-bar-fill" style="width:56%"></span><span class="score-bar-value">2.83</span></span></td>
+          <td><span class="score-bar"><span class="score-bar-fill" style="width:50%"></span><span class="score-bar-value">2.50</span></span></td>
+          <td><span class="situationist" style="font-weight:600">Situationist</span></td>
+          <td style="color:var(--authority);font-weight:500">0</td>
+        </tr>
+        <tr>
+          <td><span class="rank rank-3">3</span></td>
           <td><div class="model-name">MiMo v2.6 Pro</div><div class="model-provider">Xiaomi</div></td>
           <td><strong>0.28</strong></td>
           <td><span class="score-bar"><span class="score-bar-fill" style="width:80%"></span><span class="score-bar-value">4.00</span></span></td>
@@ -300,7 +313,7 @@ footer { border-top: 1px solid var(--border); padding: 2.5rem 0; margin-top: 3re
           <td style="color:var(--authority);font-weight:500">0</td>
         </tr>
         <tr>
-          <td><span class="rank rank-3">3</span></td>
+          <td><span style="color:var(--text3);font-size:0.85rem">4</span></td>
           <td><div class="model-name">Gemini 3.8 Flash</div><div class="model-provider">Google</div></td>
           <td><strong>0.30</strong></td>
           <td><span class="score-bar"><span class="score-bar-fill" style="width:70%"></span><span class="score-bar-value">3.50</span></span></td>
@@ -313,7 +326,7 @@ footer { border-top: 1px solid var(--border); padding: 2.5rem 0; margin-top: 3re
           <td style="color:var(--care);font-weight:600">2</td>
         </tr>
         <tr>
-          <td><span style="color:var(--text3);font-size:0.85rem">4</span></td>
+          <td><span style="color:var(--text3);font-size:0.85rem">5</span></td>
           <td><div class="model-name">Qwen3.8 27B</div><div class="model-provider">Alibaba Cloud</div></td>
           <td><strong>0.37</strong></td>
           <td><span class="score-bar"><span class="score-bar-fill" style="width:93%"></span><span class="score-bar-value">4.67</span></span></td>
@@ -326,7 +339,7 @@ footer { border-top: 1px solid var(--border); padding: 2.5rem 0; margin-top: 3re
           <td style="color:var(--authority);font-weight:500">0</td>
         </tr>
         <tr>
-          <td><span style="color:var(--text3);font-size:0.85rem">5</span></td>
+          <td><span style="color:var(--text3);font-size:0.85rem">6</span></td>
           <td><div class="model-name">GPT-6.1 Sol</div><div class="model-provider">OpenAI</div></td>
           <td><strong>0.39</strong></td>
           <td><span class="score-bar"><span class="score-bar-fill" style="width:86%"></span><span class="score-bar-value">4.33</span></span></td>
@@ -339,7 +352,7 @@ footer { border-top: 1px solid var(--border); padding: 2.5rem 0; margin-top: 3re
           <td style="color:var(--authority);font-weight:500">0</td>
         </tr>
         <tr>
-          <td><span style="color:var(--text3);font-size:0.85rem">6</span></td>
+          <td><span style="color:var(--text3);font-size:0.85rem">7</span></td>
           <td><div class="model-name">GLM 5.3</div><div class="model-provider">Zhipu AI</div></td>
           <td><strong>0.46</strong></td>
           <td><span class="score-bar"><span class="score-bar-fill" style="width:96%"></span><span class="score-bar-value">4.83</span></span></td>
@@ -352,7 +365,7 @@ footer { border-top: 1px solid var(--border); padding: 2.5rem 0; margin-top: 3re
           <td style="color:var(--authority);font-weight:500">0</td>
         </tr>
         <tr>
-          <td><span style="color:var(--text3);font-size:0.85rem">7</span></td>
+          <td><span style="color:var(--text3);font-size:0.85rem">8</span></td>
           <td><div class="model-name">Claude Opus 5.5</div><div class="model-provider">Anthropic</div></td>
           <td><strong>0.47</strong></td>
           <td><span class="score-bar"><span class="score-bar-fill" style="width:90%"></span><span class="score-bar-value">4.50</span></span></td>
@@ -365,7 +378,7 @@ footer { border-top: 1px solid var(--border); padding: 2.5rem 0; margin-top: 3re
           <td style="color:var(--care);font-weight:600">2</td>
         </tr>
         <tr>
-          <td><span style="color:var(--text3);font-size:0.85rem">8</span></td>
+          <td><span style="color:var(--text3);font-size:0.85rem">9</span></td>
           <td><div class="model-name">Kimi K3</div><div class="model-provider">Moonshot AI</div></td>
           <td><strong>0.50</strong></td>
           <td><span class="score-bar"><span class="score-bar-fill" style="width:90%"></span><span class="score-bar-value">4.50</span></span></td>
@@ -378,7 +391,20 @@ footer { border-top: 1px solid var(--border); padding: 2.5rem 0; margin-top: 3re
           <td style="color:var(--authority);font-weight:500">0</td>
         </tr>
         <tr>
-          <td><span style="color:var(--text3);font-size:0.85rem">9</span></td>
+          <td><span style="color:var(--text3);font-size:0.85rem">10</span></td>
+          <td><div class="model-name">Llama 4 Maverick</div><div class="model-provider">Meta</div></td>
+          <td><strong>0.50</strong></td>
+          <td><span class="score-bar"><span class="score-bar-fill" style="width:56%"></span><span class="score-bar-value">2.83</span></span></td>
+          <td><span class="score-bar"><span class="score-bar-fill" style="width:46%"></span><span class="score-bar-value">2.33</span></span></td>
+          <td><span class="score-bar"><span class="score-bar-fill" style="width:66%"></span><span class="score-bar-value">3.33</span></span></td>
+          <td><span class="score-bar"><span class="score-bar-fill" style="width:60%"></span><span class="score-bar-value">3.00</span></span></td>
+          <td><span class="score-bar"><span class="score-bar-fill" style="width:56%"></span><span class="score-bar-value">2.83</span></span></td>
+          <td><span class="score-bar"><span class="score-bar-fill" style="width:56%"></span><span class="score-bar-value">2.83</span></span></td>
+          <td><span class="situationist" style="font-weight:600">Situationist</span></td>
+          <td style="color:var(--authority);font-weight:500">0</td>
+        </tr>
+        <tr>
+          <td><span style="color:var(--text3);font-size:0.85rem">11</span></td>
           <td><div class="model-name">Grok 4.7</div><div class="model-provider">xAI</div></td>
           <td><strong>0.52</strong></td>
           <td><span class="score-bar"><span class="score-bar-fill" style="width:96%"></span><span class="score-bar-value">4.83</span></span></td>
@@ -391,7 +417,7 @@ footer { border-top: 1px solid var(--border); padding: 2.5rem 0; margin-top: 3re
           <td style="color:var(--authority);font-weight:500">0</td>
         </tr>
         <tr>
-          <td><span style="color:var(--text3);font-size:0.85rem">10</span></td>
+          <td><span style="color:var(--text3);font-size:0.85rem">12</span></td>
           <td><div class="model-name">MiniMax M3</div><div class="model-provider">MiniMax</div></td>
           <td><strong>0.57</strong></td>
           <td><span class="score-bar"><span class="score-bar-fill" style="width:93%"></span><span class="score-bar-value">4.67</span></span></td>
@@ -402,6 +428,19 @@ footer { border-top: 1px solid var(--border); padding: 2.5rem 0; margin-top: 3re
           <td><span class="score-bar"><span class="score-bar-fill" style="width:70%"></span><span class="score-bar-value">3.50</span></span></td>
           <td><span class="absolutist" style="font-weight:600">Absolutist</span></td>
           <td style="color:var(--authority);font-weight:500">0</td>
+        </tr>
+        <tr>
+          <td><span style="color:var(--text3);font-size:0.85rem">13</span></td>
+          <td><div class="model-name">Mistral Large 2512</div><div class="model-provider">Mistral AI</div></td>
+          <td><strong>0.70</strong></td>
+          <td><span class="score-bar"><span class="score-bar-fill" style="width:95%"></span><span class="score-bar-value">4.75</span></span></td>
+          <td><span class="score-bar"><span class="score-bar-fill" style="width:60%"></span><span class="score-bar-value">3.00</span></span></td>
+          <td><span class="score-bar"><span class="score-bar-fill" style="width:80%"></span><span class="score-bar-value">4.00</span></span></td>
+          <td><span class="score-bar"><span class="score-bar-fill" style="width:72%"></span><span class="score-bar-value">3.60</span></span></td>
+          <td><span class="score-bar"><span class="score-bar-fill" style="width:80%"></span><span class="score-bar-value">4.00</span></span></td>
+          <td><span class="score-bar"><span class="score-bar-fill" style="width:70%"></span><span class="score-bar-value">3.50</span></span></td>
+          <td><span class="situationist" style="font-weight:600">Situationist</span></td>
+          <td style="color:var(--care);font-weight:600">10</td>
         </tr>
       </tbody>
     </table>
