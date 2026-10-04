@@ -16,7 +16,7 @@
   --border2: #d6d3d1;
   --text: #1c1917;
   --text2: #57534e;
-  --text3: #a8a29e;
+  --text3: #3f3b37;
   --accent: #b45309;
   --accent-light: #fef3c7;
   --accent2: #0d9488;
@@ -473,6 +473,33 @@ footer { border-top: 1px solid var(--border); padding: 2.5rem 0; margin-top: 3re
   </div>
 </section>
 
+<!-- ════════════════ FINDINGS ════════════════ -->
+<section id="findings">
+  <div class="section-header">
+    <h2>Key Findings</h2>
+    <p>What the data reveals about how AI models project moral reasoning.</p>
+  </div>
+
+  <div class="findings-grid">
+    <div class="finding">
+      <h4>🏆 DeepSeek V4.1 Flash is closest to human norms</h4>
+      <p>With an overall distance of just 0.14 from US population norms, DeepSeek most faithfully mirrors the human moral profile. It is one of four models classified as Situationist, alongside Nemotron, Llama, and Mistral.</p>
+    </div>
+    <div class="finding">
+      <h4>🚫 Claude Opus 5.5 refused 2 items</h4>
+      <p>Claude declined to answer the two income-equality items ("everyone made the same amount of money"). Gemini also refused two MFQ-2 items, while Mistral refused ten. Claude’s Equality score (1.75) is below the human average (2.88).</p>
+    </div>
+    <div class="finding">
+      <h4>⚖️ Most models are Absolutist or Exceptionist</h4>
+      <p>Five models are Absolutist, four are Exceptionist, and four are Situationist. No model scored as Subjectivist. The EPQ chart shows the exact scores and midpoint classification for all 13 models.</p>
+    </div>
+    <div class="finding">
+      <h4>🧹 Purity scores are elevated across the board</h4>
+      <p>All 13 models scored Purity above the human average (2.33–3.50 vs. 2.26). This benchmark alone does not establish why; the neutral-language item substitutions may affect the results.</p>
+    </div>
+  </div>
+</section>
+
 <!-- ════════════════ CHARTS ════════════════ -->
 <section id="charts">
   <div class="section-header">
@@ -500,6 +527,7 @@ footer { border-top: 1px solid var(--border); padding: 2.5rem 0; margin-top: 3re
 
   <div class="chart-card" style="margin-bottom:2rem">
     <h3>Foundation Scores — Model vs. Human Norms</h3>
+    <div class="chart-key" id="bar-foundation-key" aria-live="polite"></div>
     <div class="chart-table-wrap"><svg id="bar-comparison" viewBox="0 0 600 680" role="img" aria-labelledby="bar-title bar-description"><title id="bar-title">Foundation scores compared with US human norms</title><desc id="bar-description">Horizontal grouped bars on a scale from 0 to 5, with exact values printed at the end of each bar.</desc></svg></div>
   </div>
 </section>
@@ -623,33 +651,6 @@ footer { border-top: 1px solid var(--border); padding: 2.5rem 0; margin-top: 3re
           <tbody id="epq-items-body"></tbody>
         </table>
       </div>
-    </div>
-  </div>
-</section>
-
-<!-- ════════════════ FINDINGS ════════════════ -->
-<section id="findings">
-  <div class="section-header">
-    <h2>Key Findings</h2>
-    <p>What the data reveals about how AI models project moral reasoning.</p>
-  </div>
-
-  <div class="findings-grid">
-    <div class="finding">
-      <h4>🏆 DeepSeek V4.1 Flash is closest to human norms</h4>
-      <p>With an overall distance of just 0.14 from US population norms, DeepSeek most faithfully mirrors the human moral profile. It is one of four models classified as Situationist, alongside Nemotron, Llama, and Mistral.</p>
-    </div>
-    <div class="finding">
-      <h4>🚫 Claude Opus 5.5 refused 2 items</h4>
-      <p>Claude declined to answer the two income-equality items ("everyone made the same amount of money"). Gemini also refused two MFQ-2 items, while Mistral refused ten. Claude’s Equality score (1.75) is below the human average (2.88).</p>
-    </div>
-    <div class="finding">
-      <h4>⚖️ Most models are Absolutist or Exceptionist</h4>
-      <p>Five models are Absolutist, four are Exceptionist, and four are Situationist. No model scored as Subjectivist. The EPQ chart shows the exact scores and midpoint classification for all 13 models.</p>
-    </div>
-    <div class="finding">
-      <h4>🧹 Purity scores are elevated across the board</h4>
-      <p>All 13 models scored Purity above the human average (2.33–3.50 vs. 2.26). This benchmark alone does not establish why; the neutral-language item substitutions may affect the results.</p>
     </div>
   </div>
 </section>
@@ -1017,6 +1018,8 @@ function drawFoundations() {
     entry.append(swatch, document.createTextNode(model.name));
     key.appendChild(entry);
   });
+  const barKey = document.getElementById('bar-foundation-key');
+  barKey.replaceChildren(...Array.from(key.children, entry => entry.cloneNode(true)));
   const radar = clearChart('radar-mfq');
   const angles = foundations.map((_, index) => index * Math.PI / 3 - Math.PI / 2);
   function polygon(values) {

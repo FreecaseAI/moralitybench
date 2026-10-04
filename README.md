@@ -54,7 +54,7 @@ The website provides responsive SVG charts without external chart libraries:
 
 - Select any of the 13 models to compare MFQ-2 radar profiles and foundation bars against US human norms. The three closest models are selected initially.
 - The EPQ scatter plot shows all 13 models on the 1–9 scale, with quadrant boundaries at 5.0 and an accessible table of exact scores. Numbered labels identify each model; hover over a point for details.
-- Foundation bars include exact values and scroll horizontally on narrow screens.
+- Foundation bars include exact values, repeat the selected-model legend above the bars, and scroll horizontally on narrow screens. Key Findings appears between the leaderboard and visual comparisons.
 
 Chart scores are embedded from `FreecaseAI/moralitybench-data/scored_combined.json`; update the embedded `chartModels` data when benchmark results change. The script must retain its closing `</script>` tag.
 
