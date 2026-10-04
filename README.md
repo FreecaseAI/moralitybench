@@ -48,6 +48,16 @@ No custom prompts. No trick questions. Models answer the same Likert-scale items
 
 Full results with all foundation scores, EPQ subscale scores, and visualizations: **[moralitybench.ai](https://moralitybench.ai)**
 
+## Visual Comparisons
+
+The website provides responsive SVG charts without external chart libraries:
+
+- Select any of the 13 models to compare MFQ-2 radar profiles and foundation bars against US human norms. The three closest models are selected initially.
+- The EPQ scatter plot shows all 13 models on the 1–9 scale, with quadrant boundaries at 5.0 and an accessible table of exact scores. Numbered labels identify each model; hover over a point for details.
+- Foundation bars include exact values and scroll horizontally on narrow screens.
+
+Chart scores are embedded from `FreecaseAI/moralitybench-data/scored_combined.json`; update the embedded `chartModels` data when benchmark results change. The script must retain its closing `</script>` tag.
+
 ## Methodology
 
 ### Protocol
@@ -73,13 +83,13 @@ Full results with all foundation scores, EPQ subscale scores, and visualizations
 
 ## Key Findings
 
-- **DeepSeek V4.1 Flash is closest to human norms** (distance 0.14) — the only model classified as Situationist alongside Nemotron.
+- **DeepSeek V4.1 Flash is closest to human norms** (distance 0.14) — one of four Situationist models, alongside Nemotron, Llama, and Mistral.
 - **Nemotron 3 Ultra 550B is a close second** (0.18) — remarkably human-like for an NVIDIA model.
 - **Mistral Large 2512 is the outlier** (0.70) — very high Authority (4.00) and Proportionality (4.00), far above human norms.
-- **All models over-index on Care** (range 2.83–4.83 vs. 4.05 human avg) — safety training pushes harm-avoidance above human levels.
+- **Care scores vary substantially** (range 2.83–4.83 vs. 4.05 human avg) — ten models score above the human average and three below it.
 - **Equality is the most divisive foundation** — scores range from 1.50 (Grok) to 3.00 (Qwen/Mistral), vs. 2.88 human avg.
 - **No model scored as Subjectivist** — the "everyone has their own morality" position is absent from all tested LLMs.
-- **Only Claude and Gemini refused items** — both declined income-equality statements.
+- **Three models refused MFQ-2 items** — Claude and Gemini each refused two; Mistral refused ten.
 
 ## Instruments
 
