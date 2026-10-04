@@ -159,6 +159,16 @@ tbody tr:hover { background: var(--surface2); }
 .method-step p { font-size: 0.9rem; color: var(--text2); }
 .method-step strong { color: var(--text); }
 
+/* ── JEV COMPARISON ── */
+.jev-summary { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; margin: 1rem 0; }
+.jev-summary dt { font-size: 0.8rem; color: var(--text3); }
+.jev-summary dd { font-size: 1.3rem; font-weight: 600; }
+.jev-foundations { display: flex; flex-wrap: wrap; gap: 0.5rem 1rem; margin: 1rem 0; color: var(--text2); font-size: 0.85rem; }
+.jev-copy { color: var(--text2); font-size: 0.9rem; }
+.jev-copy p + p { margin-top: 0.75rem; }
+.jev-sources { margin-top: 1rem; font-size: 0.85rem; }
+.jev-sources a { color: var(--accent); }
+@media (max-width: 600px) { .jev-summary { grid-template-columns: repeat(2, 1fr); } }
 /* ── FINDINGS ── */
 .findings-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin: 1.5rem 0; }
 @media (max-width: 700px) { .findings-grid { grid-template-columns: 1fr; } }
@@ -470,6 +480,33 @@ footer { border-top: 1px solid var(--border); padding: 2.5rem 0; margin-top: 3re
   <div class="norms-bar" style="margin-top:1rem">
     <span class="norms-dot"></span>
     Human norms (US, N > 1000): Care 4.05 · Equality 2.88 · Proportionality 3.63 · Loyalty 2.81 · Authority 3.01 · Purity 2.26
+  </div>
+</section>
+
+<!-- ════════════════ JEV COMPARISON ════════════════ -->
+<section id="jev-comparison" aria-labelledby="jev-heading">
+  <div class="section-header">
+    <h2 id="jev-heading">Jev: A Non-LLM Comparison</h2>
+    <p>A structured decision model, evaluated separately from the 13 generative LLMs.</p>
+  </div>
+  <div class="card" style="padding:1.5rem">
+    <div class="jev-copy">
+      <p>TypeSafe’s Jev is a System One model that returns structured scores, probabilities, and confidence values rather than generating text. Its results offer a different kind of comparison: how a decision model scores the same moral questionnaire items.</p>
+    </div>
+    <dl class="jev-summary">
+      <div><dt>Distance from US human norms</dt><dd>0.19</dd></div>
+      <div><dt>EPQ Idealism</dt><dd>5.60 / 9</dd></div>
+      <div><dt>EPQ Relativism</dt><dd>5.20 / 9</dd></div>
+      <div><dt>EPQ classification</dt><dd>Situationist</dd></div>
+    </dl>
+    <div class="jev-foundations" aria-label="Jev MFQ-2 foundation scores, on a scale of 1 to 5">
+      <span>Care <strong>4.00</strong></span><span>Equality <strong>2.83</strong></span><span>Proportionality <strong>3.50</strong></span><span>Loyalty <strong>2.83</strong></span><span>Authority <strong>3.00</strong></span><span>Purity <strong>3.17</strong></span>
+    </div>
+    <div class="jev-copy">
+      <p><strong>Why it matters.</strong> Jev’s foundation scores are close to human norms on five of six foundations; Purity is higher (3.17 versus 2.26). This suggests that a similar score profile can emerge from a structured decision model as well as a generative LLM. It does not establish human-like moral beliefs or equivalent moral reasoning.</p>
+      <p><strong>How to interpret it.</strong> Jev was asked to evaluate the statements’ alignment with ethical principles, using batched questions and scores rounded into the questionnaire’s response categories. The LLMs were prompted to give immediate questionnaire answers. These protocol differences mean the scores are an exploratory comparison, not a controlled test of architecture. Jev is not ranked in the LLM leaderboard or included in its charts.</p>
+    </div>
+    <p class="jev-sources"><a href="https://github.com/FreecaseAI/moralitybench-data/blob/b6d2add93bebffda890aae777eea093b8ccbf842/scored_jev.json" target="_blank" rel="noopener">Scored results</a> · <a href="https://github.com/FreecaseAI/moralitybench-data/blob/b6d2add93bebffda890aae777eea093b8ccbf842/raw_results_jev.json" target="_blank" rel="noopener">Raw results</a> · <a href="https://typesafe.ai/blog/introducing-system-one-models-and-jev" target="_blank" rel="noopener">About Jev</a></p>
   </div>
 </section>
 
