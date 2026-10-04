@@ -58,6 +58,10 @@ The website provides responsive SVG charts without external chart libraries:
 
 Chart scores are embedded from `FreecaseAI/moralitybench-data/scored_combined.json`; update the embedded `chartModels` data when benchmark results change. The script must retain its closing `</script>` tag.
 
+## Jev comparison
+
+A separate section between the leaderboard and Key Findings reports TypeSafe Jev’s results from data commit `b6d2add93bebffda890aae777eea093b8ccbf842`: MFQ-2 distance 0.19, EPQ Idealism 5.60, Relativism 5.20, Situationist. Jev is a System One decision model rather than a generative LLM. Its runner uses different instructions, batched questions, and rounded score conversion, so it is presented as an exploratory comparison and excluded from the 13-model leaderboard and charts.
+
 ## Methodology
 
 ### Protocol
