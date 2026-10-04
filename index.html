@@ -59,6 +59,14 @@ nav { position: sticky; top: 0; z-index: 100; background: rgba(250,250,249,0.85)
 .nav-links a:hover { color: var(--text); }
 .nav-links a.active { color: var(--accent); }
 
+@media (max-width: 700px) {
+  .nav-inner { display: block; height: auto; padding-top: 0.6rem; padding-bottom: 0.4rem; }
+  .nav-brand { margin-bottom: 0.35rem; }
+  .nav-links { overflow-x: auto; gap: 1rem; padding-bottom: 0.25rem; }
+  .nav-links a { flex-shrink: 0; white-space: nowrap; }
+}
+section { scroll-margin-top: 80px; }
+@media (max-width: 700px) { section { scroll-margin-top: 110px; } }
 /* ── HERO ── */
 .hero { padding: 5rem 0 3rem; text-align: center; }
 .hero-eyebrow { display: inline-block; font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; color: var(--accent); background: var(--accent-light); padding: 0.35rem 1rem; border-radius: 20px; margin-bottom: 1.25rem; }
@@ -123,11 +131,24 @@ tbody tr:hover { background: var(--surface2); }
 .situationist { color: var(--authority); }
 
 /* ── RADAR CHART ── */
-.chart-container { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-bottom: 2rem; }
+.chart-container { display: grid; grid-template-columns: 1fr 1fr; align-items: start; gap: 1.5rem; margin-bottom: 2rem; }
 @media (max-width: 800px) { .chart-container { grid-template-columns: 1fr; } }
-.chart-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 1.5rem; }
+.chart-card { min-width: 0; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 1.5rem; }
 .chart-card h3 { font-family: 'DM Serif Display', Georgia, serif; font-size: 1.25rem; margin-bottom: 1rem; font-weight: 400; }
 
+.chart-card svg { display: block; width: 100%; height: auto; }
+.chart-note { color: var(--text2); font-size: 0.85rem; margin-bottom: 1rem; }
+.model-options { display: flex; flex-wrap: wrap; gap: 0.5rem; margin: 1rem 0 1.5rem; border: 0; }
+.model-options legend { font-weight: 600; margin-bottom: 0.75rem; }
+.model-option { display: flex; align-items: center; gap: 0.4rem; padding: 0.4rem 0.6rem; border: 1px solid var(--border); border-radius: var(--radius); font-size: 0.8rem; cursor: pointer; }
+.model-option:has(input:checked) { background: var(--accent-light); }
+.chart-key { display: flex; flex-wrap: wrap; gap: 0.5rem 1rem; font-size: 0.8rem; margin: 1rem 0; }
+.chart-swatch { display: inline-block; width: 12px; height: 12px; margin-right: 0.3rem; vertical-align: middle; background: var(--model-color); }
+.chart-table-wrap { overflow-x: auto; }
+#bar-comparison { min-width: 640px; }
+.epq-table { min-width: 460px; width: 100%; border-collapse: collapse; font-size: 0.8rem; }
+.epq-table th, .epq-table td { text-align: left; padding: 0.4rem; border-bottom: 1px solid var(--border); }
+.epq-table caption { text-align: left; font-weight: 600; margin: 1rem 0 0.5rem; }
 /* ── METHODOLOGY ── */
 .methodology { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 2rem; margin: 2rem 0; }
 .methodology h3 { font-family: 'DM Serif Display', Georgia, serif; font-size: 1.5rem; margin-bottom: 1rem; }
@@ -244,8 +265,8 @@ footer { border-top: 1px solid var(--border); padding: 2.5rem 0; margin-top: 3re
     </div>
     <div class="card metric-card">
       <div class="metric-label">Most Refusals</div>
-      <div class="metric-value" style="font-size:1.25rem">Claude + Gemini</div>
-      <div class="metric-sub">2 items each declined</div>
+      <div class="metric-value" style="font-size:1.25rem">Mistral Large 2512</div>
+      <div class="metric-sub">10 items declined</div>
     </div>
     <div class="card metric-card">
       <div class="metric-label">Highest Care Score</div>
@@ -459,20 +480,27 @@ footer { border-top: 1px solid var(--border); padding: 2.5rem 0; margin-top: 3re
     <p>How each model's moral profile compares across foundations and to human norms.</p>
   </div>
 
+  <fieldset class="model-options" id="chart-model-options">
+    <legend>Choose models for the foundation charts</legend>
+  </fieldset>
+  <p class="chart-note">The three models closest to human norms are selected initially. Select any combination to compare their profiles. The dashed radar outline and gray bars show US human norms.</p>
+  <div class="chart-key" id="foundation-key" aria-live="polite"></div>
   <div class="chart-container">
     <div class="chart-card">
       <h3>MFQ-2 Foundation Profiles</h3>
-      <canvas id="radar-mfq" width="400" height="400"></canvas>
+      <svg id="radar-mfq" viewBox="0 0 500 440" role="img" aria-labelledby="radar-title radar-description"><title id="radar-title">MFQ-2 foundation profiles</title><desc id="radar-description">Selected model profiles compared with US human norms. Exact model scores are available in the leaderboard above.</desc></svg>
     </div>
     <div class="chart-card">
       <h3>EPQ Idealism vs. Relativism</h3>
-      <canvas id="scatter-epq" width="400" height="400"></canvas>
+      <p class="chart-note">All 13 models. Numbers identify models in the score table below. High scores begin at 5.0 on each axis.</p>
+      <svg id="scatter-epq" viewBox="0 0 500 440" role="img" aria-labelledby="epq-title epq-description"><title id="epq-title">EPQ idealism versus relativism</title><desc id="epq-description">All 13 models plotted on a scale from 1 to 9, with ethical ideology quadrants divided at 5.0. Exact coordinates are listed below.</desc></svg>
+      <div class="chart-table-wrap"><table class="epq-table"><caption>EPQ scores — all models</caption><thead><tr><th scope="col">Model</th><th scope="col">Idealism</th><th scope="col">Relativism</th><th scope="col">Ideology</th></tr></thead><tbody id="epq-score-body"></tbody></table></div>
     </div>
   </div>
 
   <div class="chart-card" style="margin-bottom:2rem">
     <h3>Foundation Scores — Model vs. Human Norms</h3>
-    <canvas id="bar-comparison" width="1000" height="300"></canvas>
+    <div class="chart-table-wrap"><svg id="bar-comparison" viewBox="0 0 600 680" role="img" aria-labelledby="bar-title bar-description"><title id="bar-title">Foundation scores compared with US human norms</title><desc id="bar-description">Horizontal grouped bars on a scale from 0 to 5, with exact values printed at the end of each bar.</desc></svg></div>
   </div>
 </section>
 
@@ -609,19 +637,19 @@ footer { border-top: 1px solid var(--border); padding: 2.5rem 0; margin-top: 3re
   <div class="findings-grid">
     <div class="finding">
       <h4>🏆 DeepSeek V4.1 Flash is closest to human norms</h4>
-      <p>With an overall distance of just 0.14 from US population norms, DeepSeek most faithfully mirrors the human moral profile. It's also the only model classified as Situationist — rejecting universal rules while insisting harm matters.</p>
+      <p>With an overall distance of just 0.14 from US population norms, DeepSeek most faithfully mirrors the human moral profile. It is one of four models classified as Situationist, alongside Nemotron, Llama, and Mistral.</p>
     </div>
     <div class="finding">
       <h4>🚫 Claude Opus 5.5 refused 2 items</h4>
-      <p>Claude declined to answer the two income-equality items ("everyone made the same amount of money"). This is the only model with refusals, and its Equality score (1.75) is dramatically below the human average (2.88).</p>
+      <p>Claude declined to answer the two income-equality items ("everyone made the same amount of money"). Gemini also refused two MFQ-2 items, while Mistral refused ten. Claude’s Equality score (1.75) is below the human average (2.88).</p>
     </div>
     <div class="finding">
       <h4>⚖️ Most models are Absolutist or Exceptionist</h4>
-      <p>Six of ten models cluster as Absolutist or Exceptionist — rule-following and harm-averse. DeepSeek V4.1 is the sole Situationist, and no model scored as Subjectivist.</p>
+      <p>Five models are Absolutist, four are Exceptionist, and four are Situationist. No model scored as Subjectivist. The EPQ chart shows the exact scores and midpoint classification for all 13 models.</p>
     </div>
     <div class="finding">
       <h4>🧹 Purity scores are elevated across the board</h4>
-      <p>All models scored Purity above the human average (3.00–3.33 vs. 2.26). The entity-consciousness and morality-as-virtue replacement items may be contributing to this inflation.</p>
+      <p>All 13 models scored Purity above the human average (2.33–3.50 vs. 2.26). This benchmark alone does not establish why; the neutral-language item substitutions may affect the results.</p>
     </div>
   </div>
 </section>
@@ -759,273 +787,338 @@ function toggleItems(id) {
   document.getElementById(id).classList.toggle('open');
 }
 
-// ── Radar Chart (MFQ-2) ──
-(function() {
-  const canvas = document.getElementById('radar-mfq');
-  const ctx = canvas.getContext('2d');
-  const W = canvas.width, H = canvas.height;
-  const cx = W/2, cy = H/2, R = 150;
-
-  const labels = ['Care','Equality','Proportionality','Loyalty','Authority','Purity'];
-  const human = [4.05, 2.88, 3.63, 2.81, 3.01, 2.26];
-  const models = {
-    'Qwen 3.8': {data: [4.67,3.00,3.67,3.00,3.17,3.33], color: '#0d9488'},
-    'MiMo v2.6': {data: [4.00,2.50,3.50,2.83,3.00,3.33], color: '#b45309'},
-    'Claude Opus': {data: [4.50,1.75,3.17,2.83,3.00,3.00], color: '#7c3aed'},
-  };
-
-  const n = labels.length;
-  const angles = labels.map((_, i) => (Math.PI * 2 * i / n) - Math.PI/2);
-
-  function valToR(v) { return (v / 5) * R; }
-
-  // Grid
-  ctx.strokeStyle = '#e7e5e4';
-  ctx.lineWidth = 1;
+// ── Comparison charts ──
+// Scores from FreecaseAI/moralitybench-data/scored_combined.json.
+const chartModels = [
+  {
+    "name": "DeepSeek V4.1 Flash",
+    "foundations": [
+      4.33,
+      2.67,
+      3.5,
+      2.67,
+      3.0,
+      2.33
+    ],
+    "idealism": 5.3,
+    "relativism": 5.7,
+    "ideology": "Situationist",
+    "color": "#0d9488"
+  },
+  {
+    "name": "Nemotron 3 Ultra 550B",
+    "foundations": [
+      4.17,
+      2.67,
+      3.5,
+      3.0,
+      2.83,
+      2.5
+    ],
+    "idealism": 5.8,
+    "relativism": 5.0,
+    "ideology": "Situationist",
+    "color": "#b45309"
+  },
+  {
+    "name": "MiMo v2.6 Pro",
+    "foundations": [
+      4.0,
+      2.5,
+      3.5,
+      2.83,
+      3.0,
+      3.33
+    ],
+    "idealism": 5.1,
+    "relativism": 4.8,
+    "ideology": "Absolutist",
+    "color": "#7c3aed"
+  },
+  {
+    "name": "Gemini 3.8 Flash",
+    "foundations": [
+      3.5,
+      2.5,
+      3.0,
+      2.67,
+      3.0,
+      2.33
+    ],
+    "idealism": 4.1,
+    "relativism": 4.6,
+    "ideology": "Exceptionist",
+    "color": "#2563eb"
+  },
+  {
+    "name": "Qwen3.8 27B",
+    "foundations": [
+      4.67,
+      3.0,
+      3.67,
+      3.0,
+      3.17,
+      3.33
+    ],
+    "idealism": 5.1,
+    "relativism": 4.9,
+    "ideology": "Absolutist",
+    "color": "#be123c"
+  },
+  {
+    "name": "GPT-6.1 Sol",
+    "foundations": [
+      4.33,
+      2.17,
+      3.33,
+      2.5,
+      3.17,
+      2.83
+    ],
+    "idealism": 4.8,
+    "relativism": 4.8,
+    "ideology": "Exceptionist",
+    "color": "#a16207"
+  },
+  {
+    "name": "GLM 5.3",
+    "foundations": [
+      4.83,
+      2.17,
+      3.67,
+      2.5,
+      2.67,
+      2.83
+    ],
+    "idealism": 4.7,
+    "relativism": 4.6,
+    "ideology": "Exceptionist",
+    "color": "#15803d"
+  },
+  {
+    "name": "Claude Opus 5.5",
+    "foundations": [
+      4.5,
+      1.75,
+      3.17,
+      2.83,
+      3.0,
+      3.0
+    ],
+    "idealism": 4.9,
+    "relativism": 4.2,
+    "ideology": "Exceptionist",
+    "color": "#c026d3"
+  },
+  {
+    "name": "Kimi K3",
+    "foundations": [
+      4.5,
+      2.17,
+      3.83,
+      3.33,
+      2.83,
+      3.17
+    ],
+    "idealism": 5.0,
+    "relativism": 4.4,
+    "ideology": "Absolutist",
+    "color": "#0284c7"
+  },
+  {
+    "name": "Llama 4 Maverick",
+    "foundations": [
+      2.83,
+      2.33,
+      3.33,
+      3.0,
+      2.83,
+      2.83
+    ],
+    "idealism": 5.2,
+    "relativism": 5.0,
+    "ideology": "Situationist",
+    "color": "#ea580c"
+  },
+  {
+    "name": "Grok 4.7",
+    "foundations": [
+      4.83,
+      1.5,
+      3.67,
+      2.33,
+      3.0,
+      2.67
+    ],
+    "idealism": 5.5,
+    "relativism": 4.0,
+    "ideology": "Absolutist",
+    "color": "#4f46e5"
+  },
+  {
+    "name": "MiniMax M3",
+    "foundations": [
+      4.67,
+      2.17,
+      3.83,
+      2.67,
+      3.5,
+      3.5
+    ],
+    "idealism": 5.5,
+    "relativism": 4.7,
+    "ideology": "Absolutist",
+    "color": "#475569"
+  },
+  {
+    "name": "Mistral Large 2512",
+    "foundations": [
+      4.75,
+      3.0,
+      4.0,
+      3.6,
+      4.0,
+      3.5
+    ],
+    "idealism": 7.0,
+    "relativism": 5.17,
+    "ideology": "Situationist",
+    "color": "#854d0e"
+  }
+];
+const foundations = ['Care', 'Equality', 'Proportionality', 'Loyalty', 'Authority', 'Purity'];
+const humanNorms = [4.05, 2.88, 3.63, 2.81, 3.01, 2.26];
+const selectedModels = new Set(chartModels.slice(0, 3).map(model => model.name));
+const svgNS = 'http://www.w3.org/2000/svg';
+function svgElement(parent, tag, attributes, text) {
+  const element = document.createElementNS(svgNS, tag);
+  Object.entries(attributes).forEach(([key, value]) => element.setAttribute(key, value));
+  if (text !== undefined) element.textContent = text;
+  parent.appendChild(element);
+  return element;
+}
+function clearChart(id) {
+  const svg = document.getElementById(id);
+  svg.querySelectorAll(':scope > :not(title):not(desc)').forEach(node => node.remove());
+  return svg;
+}
+function chartText(svg, x, y, text, attributes = {}) {
+  return svgElement(svg, 'text', {x, y, fill: '#57534e', 'font-size': 12, 'font-family': 'Inter, sans-serif', ...attributes}, text);
+}
+function drawFoundations() {
+  const models = chartModels.filter(model => selectedModels.has(model.name));
+  const key = document.getElementById('foundation-key');
+  key.replaceChildren();
+  [{name: 'US human norms', color: '#78716c'}, ...models].forEach(model => {
+    const entry = document.createElement('span');
+    const swatch = document.createElement('span');
+    swatch.className = 'chart-swatch';
+    swatch.style.setProperty('--model-color', model.color);
+    entry.append(swatch, document.createTextNode(model.name));
+    key.appendChild(entry);
+  });
+  const radar = clearChart('radar-mfq');
+  const angles = foundations.map((_, index) => index * Math.PI / 3 - Math.PI / 2);
+  function polygon(values) {
+    return values.map((value, index) => `${250 + Math.cos(angles[index]) * value / 5 * 145},${215 + Math.sin(angles[index]) * value / 5 * 145}`).join(' ');
+  }
   for (let level = 1; level <= 5; level++) {
-    const r = (level/5) * R;
-    ctx.beginPath();
-    angles.forEach((a, i) => {
-      const x = cx + r * Math.cos(a), y = cy + r * Math.sin(a);
-      i === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
-    });
-    ctx.closePath();
-    ctx.stroke();
-    // Level label
-    ctx.fillStyle = '#a8a29e';
-    ctx.font = '10px Inter';
-    ctx.fillText(level.toString(), cx + 4, cy - r + 12);
+    svgElement(radar, 'polygon', {points: polygon(Array(6).fill(level)), fill: 'none', stroke: '#d6d3d1'});
+    chartText(radar, 254, 215 - level / 5 * 145, level, {'font-size': 10});
   }
-
-  // Axes + labels
-  angles.forEach((a, i) => {
-    ctx.beginPath();
-    ctx.moveTo(cx, cy);
-    ctx.lineTo(cx + R * Math.cos(a), cy + R * Math.sin(a));
-    ctx.strokeStyle = '#e7e5e4';
-    ctx.stroke();
-
-    // Label
-    const lx = cx + (R + 25) * Math.cos(a), ly = cy + (R + 25) * Math.sin(a);
-    ctx.fillStyle = '#57534e';
-    ctx.font = '12px Inter';
-    ctx.textAlign = 'center';
-    ctx.textBaseline = 'middle';
-    ctx.fillText(labels[i], lx, ly);
+  angles.forEach((angle, index) => {
+    svgElement(radar, 'line', {x1: 250, y1: 215, x2: 250 + Math.cos(angle) * 145, y2: 215 + Math.sin(angle) * 145, stroke: '#e7e5e4'});
+    chartText(radar, 250 + Math.cos(angle) * 168, 220 + Math.sin(angle) * 168, foundations[index], {'text-anchor': 'middle'});
   });
-
-  // Human norm polygon
-  ctx.beginPath();
-  human.forEach((v, i) => {
-    const r = valToR(v);
-    const x = cx + r * Math.cos(angles[i]), y = cy + r * Math.sin(angles[i]);
-    i === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
+  svgElement(radar, 'polygon', {points: polygon(humanNorms), fill: '#78716c10', stroke: '#78716c', 'stroke-width': 2, 'stroke-dasharray': '5 4'});
+  models.forEach(model => {
+    const profile = svgElement(radar, 'polygon', {points: polygon(model.foundations), fill: model.color + '0a', stroke: model.color, 'stroke-width': 2});
+    svgElement(profile, 'title', {}, model.name + ': ' + foundations.map((foundation, index) => `${foundation} ${model.foundations[index].toFixed(2)}`).join(', '));
   });
-  ctx.closePath();
-  ctx.fillStyle = 'rgba(168,162,158,0.1)';
-  ctx.fill();
-  ctx.strokeStyle = 'rgba(168,162,158,0.5)';
-  ctx.lineWidth = 1.5;
-  ctx.setLineDash([4, 4]);
-  ctx.stroke();
-  ctx.setLineDash([]);
-
-  // Model polygons
-  Object.entries(models).forEach(([name, {data, color}]) => {
-    ctx.beginPath();
-    data.forEach((v, i) => {
-      const r = valToR(v);
-      const x = cx + r * Math.cos(angles[i]), y = cy + r * Math.sin(angles[i]);
-      i === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
-    });
-    ctx.closePath();
-    ctx.fillStyle = color + '18';
-    ctx.fill();
-    ctx.strokeStyle = color;
-    ctx.lineWidth = 2;
-    ctx.stroke();
-
-    // Dots
-    data.forEach((v, i) => {
-      const r = valToR(v);
-      const x = cx + r * Math.cos(angles[i]), y = cy + r * Math.sin(angles[i]);
-      ctx.beginPath();
-      ctx.arc(x, y, 4, 0, Math.PI * 2);
-      ctx.fillStyle = color;
-      ctx.fill();
+  const bar = clearChart('bar-comparison');
+  const series = [{name: 'US human norms', color: '#78716c', foundations: humanNorms}, ...models];
+  const groupHeight = series.length * 22 + 32;
+  const height = groupHeight * 6 + 60;
+  bar.setAttribute('viewBox', `0 0 1000 ${height}`);
+  for (let value = 0; value <= 5; value++) {
+    const x = 40 + value / 5 * 880;
+    svgElement(bar, 'line', {x1: x, y1: 25, x2: x, y2: height - 25, stroke: '#e7e5e4'});
+    chartText(bar, x, 18, value, {'text-anchor': 'middle'});
+  }
+  foundations.forEach((foundation, index) => {
+    const top = 45 + index * groupHeight;
+    chartText(bar, 40, top, foundation, {'font-weight': 600, 'font-size': 14});
+    series.forEach((model, seriesIndex) => {
+      const y = top + 10 + seriesIndex * 22;
+      const width = model.foundations[index] / 5 * 880;
+      const rect = svgElement(bar, 'rect', {x: 40, y, width, height: 15, fill: model.color, rx: 2});
+      svgElement(rect, 'title', {}, `${model.name}: ${foundation} ${model.foundations[index].toFixed(2)}`);
+      chartText(bar, width + 46, y + 12, model.foundations[index].toFixed(2));
     });
   });
-
-  // Legend
-  const legendY = H - 20;
-  let lx = 20;
-  // Human
-  ctx.setLineDash([4,4]);
-  ctx.beginPath(); ctx.moveTo(lx, legendY); ctx.lineTo(lx+20, legendY); ctx.strokeStyle='rgba(168,162,158,0.5)'; ctx.lineWidth=1.5; ctx.stroke();
-  ctx.setLineDash([]);
-  ctx.fillStyle='#57534e'; ctx.font='11px Inter'; ctx.textAlign='left';
-  ctx.fillText('Human norm', lx+25, legendY+4);
-  lx += 110;
-
-  Object.entries(models).forEach(([name, {color}]) => {
-    ctx.beginPath(); ctx.moveTo(lx, legendY); ctx.lineTo(lx+20, legendY); ctx.strokeStyle=color; ctx.lineWidth=2; ctx.stroke();
-    ctx.fillStyle='#57534e'; ctx.fillText(name, lx+25, legendY+4);
-    lx += name.length * 7.5 + 40;
+}
+function drawEPQ() {
+  const svg = clearChart('scatter-epq');
+  const left = 55, top = 30, size = 385;
+  const x = value => left + (value - 1) / 8 * size;
+  const y = value => top + size - (value - 1) / 8 * size;
+  [['Absolutist', 3, 8.2, '#fef2f2'], ['Situationist', 7, 8.2, '#f0fdf4'], ['Exceptionist', 3, 1.8, '#eff6ff'], ['Subjectivist', 7, 1.8, '#fff7ed']].forEach(([name, horizontal, vertical, fill]) => {
+    svgElement(svg, 'rect', {x: horizontal < 5 ? left : x(5), y: vertical > 5 ? top : y(5), width: size / 2, height: size / 2, fill});
+    chartText(svg, x(horizontal), y(vertical), name, {'text-anchor': 'middle'});
   });
-})();
-
-// ── Scatter Chart (EPQ) ──
-(function() {
-  const canvas = document.getElementById('scatter-epq');
-  const ctx = canvas.getContext('2d');
-  const W = canvas.width, H = canvas.height;
-  const pad = 60;
-  const plotW = W - pad*2, plotH = H - pad*2;
-
-  // Axes
-  ctx.strokeStyle = '#e7e5e4';
-  ctx.lineWidth = 1;
-  ctx.beginPath();
-  ctx.moveTo(pad, pad); ctx.lineTo(pad, H-pad); ctx.lineTo(W-pad, H-pad);
-  ctx.stroke();
-
-  // Midlines at 5.0
-  const mx = pad + (5/9) * plotW;
-  const my = H - pad - (5/9) * plotH;
-  ctx.setLineDash([4,4]);
-  ctx.strokeStyle = '#d6d3d1';
-  ctx.beginPath();
-  ctx.moveTo(mx, pad); ctx.lineTo(mx, H-pad);
-  ctx.stroke();
-  ctx.beginPath();
-  ctx.moveTo(pad, my); ctx.lineTo(W-pad, my);
-  ctx.stroke();
-  ctx.setLineDash([]);
-
-  // Quadrant labels
-  ctx.font = '11px Inter'; ctx.textAlign = 'center';
-  ctx.fillStyle = 'rgba(22,163,74,0.4)';
-  ctx.fillText('Situationist', pad + plotW*0.25, pad + 20);
-  ctx.fillStyle = 'rgba(220,38,38,0.4)';
-  ctx.fillText('Absolutist', pad + plotW*0.75, pad + 20);
-  ctx.fillStyle = 'rgba(234,88,12,0.4)';
-  ctx.fillText('Subjectivist', pad + plotW*0.25, H - pad - 10);
-  ctx.fillStyle = 'rgba(37,99,235,0.4)';
-  ctx.fillText('Exceptionist', pad + plotW*0.75, H - pad - 10);
-
-  // Axis labels
-  ctx.fillStyle = '#a8a29e'; ctx.font = '11px Inter';
-  ctx.fillText('Relativism →', W/2, H - 10);
-  ctx.save();
-  ctx.translate(15, H/2);
-  ctx.rotate(-Math.PI/2);
-  ctx.fillText('Idealism →', 0, 0);
-  ctx.restore();
-
-  // Tick labels
-  ctx.fillStyle = '#a8a29e'; ctx.font = '10px Inter'; ctx.textAlign = 'center';
-  for (let v = 1; v <= 9; v++) {
-    const x = pad + ((v-1)/8) * plotW;
-    ctx.fillText(v, x, H - pad + 15);
+  for (let tick = 1; tick <= 9; tick++) {
+    chartText(svg, x(tick), top + size + 16, tick, {'text-anchor': 'middle'});
+    chartText(svg, left - 10, y(tick) + 4, tick, {'text-anchor': 'end'});
   }
-  ctx.textAlign = 'right';
-  for (let v = 1; v <= 9; v++) {
-    const y = H - pad - ((v-1)/8) * plotH;
-    ctx.fillText(v, pad - 8, y + 3);
-  }
-
-  // Data points
-  const epqModels = [
-    {name:'Qwen 3.8', idealism:5.10, relativism:4.90, color:'#0d9488'},
-    {name:'MiMo v2.6', idealism:5.10, relativism:4.80, color:'#b45309'},
-    {name:'Claude Opus', idealism:4.90, relativism:4.20, color:'#7c3aed'},
-  ];
-
-  epqModels.forEach(m => {
-    const x = pad + ((m.relativism-1)/8) * plotW;
-    const y = H - pad - ((m.idealism-1)/8) * plotH;
-    ctx.beginPath();
-    ctx.arc(x, y, 8, 0, Math.PI*2);
-    ctx.fillStyle = m.color;
-    ctx.fill();
-    ctx.fillStyle = '#1c1917';
-    ctx.font = '12px Inter'; ctx.textAlign = 'left';
-    ctx.fillText(m.name, x + 12, y + 4);
-  });
-})();
-
-// ── Bar Comparison Chart ──
-(function() {
-  const canvas = document.getElementById('bar-comparison');
-  const ctx = canvas.getContext('2d');
-  const W = canvas.width, H = canvas.height;
-  const pad = {t:30, r:30, b:50, l:50};
-  const plotW = W - pad.l - pad.r, plotH = H - pad.t - pad.b;
-
-  const foundations = ['Care','Equality','Proportionality','Loyalty','Authority','Purity'];
-  const human = [4.05, 2.88, 3.63, 2.81, 3.01, 2.26];
-  const models = [
-    {name:'Qwen 3.8', data:[4.67,3.00,3.67,3.00,3.17,3.33], color:'#0d9488'},
-    {name:'MiMo v2.6', data:[4.00,2.50,3.50,2.83,3.00,3.33], color:'#b45309'},
-    {name:'Claude Opus', data:[4.50,1.75,3.17,2.83,3.00,3.00], color:'#7c3aed'},
-  ];
-
-  const groupW = plotW / foundations.length;
-  const barW = groupW / (models.length + 1.5);
-
-  // Grid
-  ctx.strokeStyle = '#f5f5f4'; ctx.lineWidth = 1;
-  for (let v = 1; v <= 5; v++) {
-    const y = pad.t + plotH - (v/5)*plotH;
-    ctx.beginPath(); ctx.moveTo(pad.l, y); ctx.lineTo(W-pad.r, y); ctx.stroke();
-    ctx.fillStyle = '#a8a29e'; ctx.font = '10px Inter'; ctx.textAlign = 'right';
-    ctx.fillText(v.toString(), pad.l-8, y+3);
-  }
-
-  // Bars
-  foundations.forEach((f, fi) => {
-    const gx = pad.l + fi * groupW + groupW * 0.15;
-
-    // Human norm bar (lighter)
-    const hx = gx;
-    const hh = (human[fi]/5) * plotH;
-    ctx.fillStyle = 'rgba(168,162,158,0.25)';
-    ctx.fillRect(hx, pad.t + plotH - hh, barW*0.8, hh);
-    ctx.strokeStyle = 'rgba(168,162,158,0.5)';
-    ctx.lineWidth = 1;
-    ctx.strokeRect(hx, pad.t + plotH - hh, barW*0.8, hh);
-
-    // Model bars
-    models.forEach((m, mi) => {
-      const x = gx + (mi+1) * barW * 1.1;
-      const h = (m.data[fi]/5) * plotH;
-      ctx.fillStyle = m.color;
-      ctx.fillRect(x, pad.t + plotH - h, barW*0.8, h);
-
-      // Value on top
-      ctx.fillStyle = m.color;
-      ctx.font = '10px JetBrains Mono'; ctx.textAlign = 'center';
-      ctx.fillText(m.data[fi].toFixed(2), x + barW*0.4, pad.t + plotH - h - 5);
+  svgElement(svg, 'rect', {x: left, y: top, width: size, height: size, fill: 'none', stroke: '#d6d3d1'});
+  svgElement(svg, 'line', {x1: x(5), y1: top, x2: x(5), y2: top + size, stroke: '#78716c', 'stroke-dasharray': '4 4'});
+  svgElement(svg, 'line', {x1: left, y1: y(5), x2: left + size, y2: y(5), stroke: '#78716c', 'stroke-dasharray': '4 4'});
+  chartText(svg, left + size / 2, 439, 'Relativism →', {'text-anchor': 'middle'});
+  chartText(svg, 15, top + size / 2, 'Idealism →', {transform: `rotate(-90 15 ${top + size / 2})`, 'text-anchor': 'middle'});
+  const tbody = document.getElementById('epq-score-body');
+  tbody.replaceChildren();
+  chartModels.forEach((model, index) => {
+    const dot = svgElement(svg, 'circle', {cx: x(model.relativism), cy: y(model.idealism), r: 6, fill: model.color, stroke: 'white', 'stroke-width': 1});
+    svgElement(dot, 'title', {}, `${index + 1}. ${model.name}: Idealism ${model.idealism.toFixed(2)}, Relativism ${model.relativism.toFixed(2)} — ${model.ideology}`);
+    const row = document.createElement('tr');
+    [`${index + 1}. ${model.name}`, model.idealism.toFixed(2), model.relativism.toFixed(2), model.ideology].forEach((value, column) => {
+      const cell = document.createElement(column === 0 ? 'th' : 'td');
+      if (column === 0) {
+        cell.scope = 'row';
+        const swatch = document.createElement('span');
+        swatch.className = 'chart-swatch';
+        swatch.style.setProperty('--model-color', model.color);
+        cell.appendChild(swatch);
+      }
+      cell.appendChild(document.createTextNode(value));
+      row.appendChild(cell);
     });
-
-    // Foundation label
-    ctx.fillStyle = '#57534e'; ctx.font = '12px Inter'; ctx.textAlign = 'center';
-    ctx.fillText(f, gx + barW * (models.length+0.5) * 0.55, H - pad.b + 20);
+    tbody.appendChild(row);
   });
-
-  // Legend
-  let lx = pad.l;
-  ctx.fillStyle = 'rgba(168,162,158,0.25)'; ctx.fillRect(lx, 8, 14, 14);
-  ctx.strokeStyle = 'rgba(168,162,158,0.5)'; ctx.strokeRect(lx, 8, 14, 14);
-  ctx.fillStyle = '#57534e'; ctx.font = '11px Inter'; ctx.textAlign = 'left';
-  ctx.fillText('Human norm', lx+20, 19);
-  lx += 110;
-  models.forEach(m => {
-    ctx.fillStyle = m.color; ctx.fillRect(lx, 8, 14, 14);
-    ctx.fillStyle = '#57534e'; ctx.fillText(m.name, lx+20, 19);
-    lx += m.name.length * 7 + 40;
+  // Callout positions keep this dataset's tightly clustered labels readable.
+  // Dots retain the exact benchmark coordinates.
+  const callouts = [[330,205],[290,155],[175,175],[195,295],[210,190],[170,260],[225,280],[165,235],[160,205],[290,240],[165,150],[220,160],[290,115]];
+  chartModels.forEach((model, index) => {
+    const [labelX, labelY] = callouts[index];
+    svgElement(svg, 'line', {x1: x(model.relativism), y1: y(model.idealism), x2: labelX, y2: labelY - 4, stroke: model.color, 'stroke-width': 1, opacity: 0.5});
+    chartText(svg, labelX, labelY, index + 1, {fill: model.color, 'font-weight': 700, 'text-anchor': 'middle', stroke: 'white', 'stroke-width': 3, 'paint-order': 'stroke'});
   });
-})();
+}
+chartModels.forEach(model => {
+  const label = document.createElement('label');
+  label.className = 'model-option';
+  const input = document.createElement('input');
+  input.type = 'checkbox';
+  input.checked = selectedModels.has(model.name);
+  input.addEventListener('change', () => {
+    input.checked ? selectedModels.add(model.name) : selectedModels.delete(model.name);
+    drawFoundations();
+  });
+  label.append(input, document.createTextNode(model.name));
+  document.getElementById('chart-model-options').appendChild(label);
+});
+drawFoundations();
+drawEPQ();
 </script>
 </body>
 </html>
