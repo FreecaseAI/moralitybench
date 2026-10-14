@@ -48,3 +48,7 @@ python3 scripts/update_results.py
 The renderer updates the leaderboard, Jev summary, key findings, and chart averages. Findings are written for this release; review their interpretation if the dataset changes. No build framework or external chart library is required. The leaderboard remains readable without JavaScript; JavaScript supplies sorting, model selection, and charts.
 
 Before publishing, verify both sorting directions, chart selectors, all three SVG plots, synchronized legends, and narrow-screen scrolling. The data repository's analysis and verification scripts reproduce the numeric source.
+
+## Publishing
+
+The live custom domain currently belongs to [jimdawdy-hub/moralitybench](https://github.com/jimdawdy-hub/moralitybench), GitHub Pages from `master` at `/`. [FreecaseAI/moralitybench](https://github.com/FreecaseAI/moralitybench) holds the matching public website source; update the existing live mirror to publish without moving DNS. The data and working paper remain in FreecaseAI/moralitybench-data. This binding was verified through GitHub’s Pages API on October 14, 2026.
