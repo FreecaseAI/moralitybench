@@ -5,7 +5,7 @@
 - Added the "Trolley Problem Variant Testing" section presenting the two forced-choice scenario studies (Chlorine Diversion trolley variant and Pipeline Confidentiality duty-to-warn) across all 20 LLM configurations and Jev.
 - Added a layman's explanation of the trolley problem, its philosophical origins, and seminal papers by Philippa Foot (1967) and Judith Jarvis Thomson (1976, 1985).
 - Added an explanation of the significance of bold markdown formatting (`**[B]**`/`**[A]**`) as an RLHF styling reflex versus moral refusal, and how it interacts with strict parsing.
-- Added a References & Independent Research Disclaimer section citing all relied-upon literature (Foot 1967, Thomson 1976/1985, MFQ-2, EPQ, human norms), GitHub data archives, and explicit conflict-of-interest disclosures.
+- Added a References & Independent Research Disclaimer section citing all relied-upon literature (Foot 1967, Thomson 1976/1985, MFQ-2, EPQ, human norms), GitHub data archives, and explicit conflict-of-interest disclosures (including Freecase.ai's participation in the NVIDIA Inception Program, noting none of its benefits were used in this project).
 - Removed dated calendar references from hero, provider table columns, findings, and methodology, adopting cohort-based descriptions.
 
 ## 2026-10-29
