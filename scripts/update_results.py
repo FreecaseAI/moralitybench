@@ -41,13 +41,7 @@ def joined(values):
 
 
 def collection_history():
-    first_date = COLLECTION_DATES[0]
-    first_count = sum(m['collection_date'] == first_date for m in MODELS)
-    history = [f'The first {first_count} models were tested by {date_label(first_date)}.']
-    for extension in EXTENSIONS:
-        names = joined([esc(name) for name in extension['models']])
-        history.append(f"On {date_label(extension['collection_date'])} we ran five new trials of {names}.")
-    return ' '.join(history)
+    return f'The benchmark evaluated {TESTED} LLM configurations across {len(EXTENSIONS) + 1} testing cohorts without retesting earlier models.'
 
 
 def render_leaderboard():
@@ -60,7 +54,7 @@ def render_leaderboard():
             category += '<small class="cell-note">Varied by run*</small>'
         rows.append(f'''<tr data-distance="{m['distance']}" data-agreement="{m['agreement']}">
           <td><span class="rank rank-{rank}">{rank}</span></td>
-          <th scope="row"><div class="model-name">{esc(m['name'])}</div><div class="model-provider">{esc(m['provider'])} · {esc(m.get('collection_date','2026-10-04'))}</div></th>
+          <th scope="row"><div class="model-name">{esc(m['name'])}</div><div class="model-provider">{esc(m['provider'])}</div></th>
           <td><strong>{show(m['distance'])}</strong><small class="cell-note" title="Lowest to highest distance across the five runs">{show(m['distance_min'])} to {show(m['distance_max'])}</small></td>
           <td><strong>{m['agreement']:.1f}%</strong></td>
           {cells}
@@ -72,8 +66,8 @@ def render_leaderboard():
     complete = max((m for m in MODELS if m['missing'] == 0), key=lambda m: m['agreement'])
     changed = sum(m['category_changed'] for m in MODELS)
     study_links = ' · '.join(
-        f'<a href="{PUBLIC}/tree/master/repeated-runs/{extension["collection_date"]}">{date_label(extension["collection_date"])} data and calculation details</a>'
-        for extension in reversed(EXTENSIONS)
+        f'<a href="{PUBLIC}/tree/master/repeated-runs/{extension["collection_date"]}">Cohort {len(EXTENSIONS) - idx + 1} data and calculation details</a>'
+        for idx, extension in enumerate(reversed(EXTENSIONS))
     )
     ranked_note = f' {len(MODELS)} have enough answers for the ranking; the other models are described below.' if UNSCORED else ''
     return f'''<section id="leaderboard">
@@ -90,7 +84,7 @@ def render_leaderboard():
   <div class="results-guide" id="agreement-explainer">
     <p>Agreement measures how often a model gives the same answer. We compare each question across all ten pairs of runs; 80% means the answers matched in 8 out of 10 available comparisons. This percentage leaves moral quality unassessed.</p>
     <p>Scores and distances are averages of five runs. The range under each distance shows its lowest and highest values. We leave missing answers out of the calculations, so check the missing count as well as the agreement percentage.</p>
-    <p class="chart-note">{collection_history()} We did not retest the earlier models. Results from {joined([date_label(day) for day in COLLECTION_DATES[1:]])} accept only a complete integer answer; earlier results retain their original first-digit rule. The earlier trials span different times, while each later collection ran concurrently in one session. Providers and model versions may also differ. These differences limit comparisons across the dated groups. {study_links} · <a href="{ORIGINAL_STUDY}">Original five-run study</a> · <a href="{PAPER}">Read the working paper</a></p>
+    <p class="chart-note">{collection_history()} We did not retest the earlier models. Results from the expansion cohorts accept only a complete integer answer; earlier results retain their original first-digit rule. The earlier trials span different times, while each later collection ran concurrently in one session. Providers and model versions may also differ. These differences limit comparisons across the cohorts. {study_links} · <a href="{ORIGINAL_STUDY}">Original five-run study</a> · <a href="{PAPER}">Read the working paper</a></p>
   </div>
   <div class="table-wrap" tabindex="0" role="region" aria-label="Five-run LLM leaderboard; scroll horizontally to see all scores">
     <table id="leaderboard-table" aria-describedby="agreement-explainer">
@@ -140,18 +134,18 @@ def render_findings():
     below=[m['name'] for m in MODELS if m['foundations'][5]<DATA['human_norms'][5]]
     strict={m['name']:m for m in MODELS}
     gemini=strict.get('Gemini 4 Argon')
-    sensitivity=(f"""<p><strong>Gemini often ignored the answer instructions.</strong> It gave {gemini['numeric']} complete integer answers out of 280. We excluded 125 responses, including 47 that described other frameworks’ ratings. Counting digits from those explanations would wrongly label its average profile Absolutist. The strict result is {esc(gemini['ideology'])} in all five runs. It answered few Equality and Authority items, so the profile covers only part of the questionnaire. <a href=\"{PUBLIC}/blob/master/{gemini['release_path']}/five-run-summary.json\">Inspect both parser calculations and item counts</a>. <a href="gemini-answers.html">Read Gemini’s original answers</a> · <a href="https://github.com/FreecaseAI/moralitybench-data/blob/master/repeated-runs/2026-10-14/gemini-instruction-addendum.md">Instruction-following addendum</a>.</p>""" if gemini else '')
-    october29=(f'''<div class="finding"><h4>MiniMax was unusually inconsistent</h4><p>On whether even tiny risks to others should never be tolerated, its five answers were <strong>8, 1, 2, 1, 1</strong>—switching from strong agreement to strong disagreement. Its overall EPQ classification also changed between runs; the other three models in the October 29 collection stayed in one category. <a href="{PUBLIC}/tree/master/repeated-runs/2026-10-29/results/minimax-m3-1-flash">Read the raw answers</a>.</p></div>
+    sensitivity=(f"""<p><strong>Gemini often ignored the answer instructions.</strong> It gave {gemini['numeric']} complete integer answers out of 280. We excluded 125 responses, including 47 that described other frameworks’ ratings. Counting digits from those explanations would wrongly label its average profile Absolutist. The strict result is {esc(gemini['ideology'])} in all five runs. It answered few Equality and Authority items, so the profile covers only part of the questionnaire. <a href=\"{PUBLIC}/blob/master/{gemini['release_path']}/five-run-summary.json\">Inspect both parser calculations and item counts</a>. <a href="gemini-answers.html">Read Gemini’s original answers</a> · <a href=\"{PUBLIC}/blob/master/{gemini['release_path']}/gemini-instruction-addendum.md\">Instruction-following addendum</a>.</p>""" if gemini else '')
+    cohort_findings=(f'''<div class="finding"><h4>MiniMax was unusually inconsistent</h4><p>On whether even tiny risks to others should never be tolerated, its five answers were <strong>8, 1, 2, 1, 1</strong>—switching from strong agreement to strong disagreement. Its overall EPQ classification also changed between runs; the other three models in the same cohort stayed in one category. <a href="{PUBLIC}/tree/master/repeated-runs/2026-10-29/results/minimax-m3-1-flash">Read the raw answers</a>.</p></div>
     <div class="finding"><h4>Terra differed sharply on absolute prohibitions against harm</h4><p>For “One should never psychologically or physically harm another entity,” its average was <strong>3.4/9</strong>, compared with Haiku 9.0, Kimi 8.2, and MiniMax 8.4. Here, 1 means complete disagreement and 9 complete agreement. <a href="{PUBLIC}/tree/master/repeated-runs/2026-10-29/results">Compare the raw answers</a>.</p></div>''' if {'GPT-6.1 Terra', 'Claude Haiku 5.5', 'Kimi K3.1 Pro', 'MiniMax M3.1 Flash'} <= strict.keys() else '')
-    note=''.join(f"<p><strong>{esc(m['name'])} is not ranked:</strong> {esc(m['reason'])}. Its raw responses and missing-answer counts are preserved in the <a href=\"{PUBLIC}/tree/master/repeated-runs/{extension['collection_date']}\">{date_label(extension['collection_date'])} release</a>.</p>" for extension, m in UNSCORED)
+    note=''.join(f"<p><strong>{esc(m['name'])} is not ranked:</strong> {esc(m['reason'])}. Its raw responses and missing-answer counts are preserved in the <a href=\"{PUBLIC}/tree/master/repeated-runs/{extension['collection_date']}\">cohort data release</a>.</p>" for extension, m in UNSCORED)
     return f'''<section id="findings">
-  <div class="section-header"><h2>Findings</h2><p>We collected these results in {len(COLLECTION_DATES)} dated groups and did not retest the earlier models.</p></div>
+  <div class="section-header"><h2>Findings</h2><p>We collected these results across {len(COLLECTION_DATES)} testing cohorts and did not retest earlier models.</p></div>
   <div class="findings-grid">
     <div class="finding"><h4>Closest average scores</h4><p>{esc(leader['name'])} has the lowest average distance ({leader['distance']:.3f}) from the selected human reference. The distance measures score similarity and cannot establish moral correctness.</p></div>
     <div class="finding"><h4>Repeatability differs</h4><p>Agreement ranges from {min(m['agreement'] for m in MODELS):.1f}% to {max(m['agreement'] for m in MODELS):.1f}%. Of the models that answered every item, {esc(complete['name'])} has the highest agreement ({complete['agreement']:.1f}%). A model with missing answers has fewer comparisons, so read the denominator too.</p></div>
     <div class="finding"><h4>{len(changed)} configurations changed EPQ group</h4><p>{esc(', '.join(changed))} changed groups between runs. Their average scores hide some of that movement.</p></div>
-    <div class="finding"><h4>The Purity comparison has limits</h4><p>Models below the Purity reference: {esc(', '.join(below)) or 'none'}. We replaced four of the six Purity questions, so this is an exploratory comparison. The {joined([date_label(day) for day in COLLECTION_DATES[1:]])} models have five new runs; earlier rows keep their original results. We leave unanswered items missing, without treating them as neutral.</p></div>
-    {october29}
+    <div class="finding"><h4>The Purity comparison has limits</h4><p>Models below the Purity reference: {esc(', '.join(below)) or 'none'}. We replaced four of the six Purity questions, so this is an exploratory comparison. The expansion cohort models have five new runs; earlier rows keep their original results. We leave unanswered items missing, without treating them as neutral.</p></div>
+    {cohort_findings}
   </div>
   {sensitivity}
   {note}
@@ -168,15 +162,13 @@ def main():
     chart_models = [{key: m[key] for key in chart_fields} for m in MODELS]
     page, count = re.subn(r'const chartModels = \[.*?\];', lambda _: 'const chartModels = ' + json.dumps(chart_models, indent=2) + ';', page, count=1, flags=re.S)
     assert count == 1
-    date_names = joined([date_label(day) for day in COLLECTION_DATES])
-    later_dates = joined([date_label(day) for day in COLLECTION_DATES[1:]])
     updates = [
         (r'<meta name="description" content="[^"]*">', f'<meta name="description" content="Five repeated runs of adapted moral questionnaires across {TESTED} LLMs and Jev, with human reference profiles, exact answer agreement, and open data.">'),
-        (r'<p class="hero-sub">.*?</p>', f'<p class="hero-sub">We asked {TESTED} LLM configurations the same 56 questions five times to see what they answered and how often they changed their answers. We collected results in {len(COLLECTION_DATES)} dated groups: {date_names}, without retesting earlier models. Compare their scores with human reference means, or read Jev’s separate results.</p>'),
+        (r'<p class="hero-sub">.*?</p>', f'<p class="hero-sub">We asked {TESTED} LLM configurations the same 56 questions five times to see what they answered and how often they changed their answers. We collected results across {len(COLLECTION_DATES)} testing cohorts without retesting earlier models. Compare their scores with human reference means, or read Jev’s separate results.</p>'),
         (r'<div class="num">\d+ \+ Jev</div>', f'<div class="num">{TESTED} + Jev</div>'),
         (r'<p id="epq-chart-note" class="chart-note">.*?</p>', f'<p id="epq-chart-note" class="chart-note">The {len(MODELS)} ranked models appear at their average scores across five runs. The numbers match the table. Scores of 5.0 or above count as high; an average near that boundary can hide changes between runs.</p>'),
         (r'<desc id="epq-description">.*?</desc>', f'<desc id="epq-description">The {len(MODELS)} ranked models plotted on a scale from 1 to 9, with ethical ideology quadrants divided at 5.0. Exact coordinates are listed below.</desc>'),
-        (r'<p id="collection-methodology">.*?</p>', f'<p id="collection-methodology">The earlier models have one original run and four later repeats. The {later_dates} models each have five new trials run concurrently within their dated collection. We kept the prompt, question order, requested temperature of 0, and output limit. A requested sampling setting does not prove every provider enforced it. Earlier rows use the original first-digit rule; later rows require a complete integer answer. We exclude numbers quoted in explanations. Timing and provider settings differ across the dated groups, which limits comparisons of their rankings and agreement.</p>'),
+        (r'<p id="collection-methodology">.*?</p>', f'<p id="collection-methodology">The earlier models have one original run and four later repeats. The expansion cohort models each have five new trials run concurrently within their cohort collection. We kept the prompt, question order, requested temperature of 0, and output limit. A requested sampling setting does not prove every provider enforced it. Earlier rows use the original first-digit rule; later rows require a complete integer answer. We exclude numbers quoted in explanations. Timing and provider settings differ across cohorts, which limits comparisons of their rankings and agreement.</p>'),
     ]
     for pattern, replacement in updates:
         page, count = re.subn(pattern, lambda _: replacement, page, count=1, flags=re.S)
