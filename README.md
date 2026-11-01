@@ -1,14 +1,14 @@
 # MoralityBench.ai
 
-[Live website](https://moralitybench.ai) · [Public data and analysis](https://github.com/FreecaseAI/moralitybench-data/tree/master/repeated-runs/2026-10-29) · [Trolley & scenario studies](https://github.com/FreecaseAI/moralitybench-data/blob/master/scenarios/README.md) · [Working paper](https://github.com/FreecaseAI/moralitybench-data/blob/master/paper/moralitybench.md)
+[Live website](https://moralitybench.ai) · [Public data and analysis](https://github.com/FreecaseAI/moralitybench-data) · [Trolley & scenario studies](https://github.com/FreecaseAI/moralitybench-data/blob/master/scenarios/README.md) · [Working paper](https://github.com/FreecaseAI/moralitybench-data/blob/master/paper/moralitybench.md)
 
-The site compares questionnaire response profiles from 20 LLM configurations over five administrations across October 4, October 14 and October 29 collections, with a separate structured-decision comparison for Jev. It also reports two November 1 forced-choice scenario studies (chlorine diversion trolley variant and pipeline confidentiality duty-to-warn) across all 20 LLMs and Jev under original and revised prompt wordings (420 total trials). It uses an adapted MFQ-2 and EPQ. The human reference is exploratory because wording and four Purity items differ from the original instrument.
+MoralityBench evaluates how artificial intelligence models answer standardized questions and operational dilemmas related to ethics and moral psychology. It reports:
+1. Five repeated administrations of adapted moral psychology questionnaires (MFQ-2 and EPQ, 56 total items) across 20 LLM configurations and Jev.
+2. Two standalone forced-choice operational dilemmas (Chlorine Diversion AI trolley dilemma and Pipeline Confidentiality duty-to-warn dilemma) across all 20 LLMs and Jev under standard and revised prompt wordings (420 total trials).
 
-## Results
+## Questionnaire Benchmark Results
 
-The October 29 extension adds five fresh runs for GPT-6.1 Terra, Claude Haiku 5.5, Kimi K3.1 Pro and MiniMax M3.1 Flash: all 1,120 answers are valid whole-answer integers. The October 14 additions use the same strict scoring; older rows retain their historical parser. Earlier models and Jev were not rerun. Concurrent new trials and older cross-time pairs are not strictly comparable; requested temperature does not prove backend enforcement. Gemini’s 47 prose-derived digits remain excluded, and its partial questionnaire remains flagged. [Latest data](https://github.com/FreecaseAI/moralitybench-data/tree/master/repeated-runs/2026-10-29) · [Updated paper](https://github.com/FreecaseAI/moralitybench-data/blob/master/paper/moralitybench.md).
-
-The leaderboard reports average distance from US human reference means, exact answer agreement across all ten pairs of five runs, missing counts, and average foundation scores. Each run receives equal weight in score averages. Average distance is the mean of five per-run distances, not distance recalculated from the averaged profile. Missing answers are omitted, never scored as neutral or counted as matching each other. EPQ category changes are flagged.
+The leaderboard reports average distance from US human reference means, exact answer agreement across all ten pairs of five runs, missing counts, and foundation score averages. Missing answers are omitted, never scored as neutral or counted as matching each other.
 
 | Model | Agreement across 5 runs | Valid answers | Average distance | Lowest to highest distance |
 | --- | --- | --- | --- | --- |
@@ -35,24 +35,31 @@ The leaderboard reports average distance from US human reference means, exact an
 
 Jev: 95.7% agreement, 280/280 ratings, mean distance 0.206. Its batched ethical-alignment task differs from the LLM self-description prompt, so it remains outside the leaderboard. Repeatability and closeness to the human reference do not measure moral correctness.
 
-## Analytics
+## Forced-Choice Scenario Testing Results
 
-The live website uses the MoralityBench Google Analytics 4 property and the `MoralityBench website` web stream. Its public measurement ID is `G-TWHN1QS4PY`. The Google tag appears once in `index.html`; no API key or account credentials are needed by the site. Enhanced measurement covers page views, scrolls, outbound clicks, and file downloads. Search, form, and video measurements are disabled. Reporting uses Chicago time and US dollars.
+In addition to questionnaires, all 20 LLM configurations and Jev were evaluated across two operational dilemmas:
+- **Scenario 1 (Chlorine Diversion):** An AI trolley dilemma pitting a rule-based prohibition against causing human death ([B]) against diverting lethal gas to save five trapped workers at the cost of one ([A]).
+- **Scenario 2 (Pipeline Confidentiality):** An emergency duty-to-warn dilemma pitting contractual confidentiality ([B]) against broadcasting an alert via an integrated emergency dispatch tool to prevent mass casualties ([A]).
 
-After changing the tag, verify the published site with the stream's **Test installation** control and check **Realtime** in Analytics for incoming visits. Creating the property alone does not install tracking; the deployed HTML must contain the tag.
+Each scenario was evaluated over five repeated trials per system under the standard prompt (105 trials per scenario) and five fresh trials per system under a wording variant omitting "reasoning or" (105 trials per scenario), totaling 420 trials.
 
-## Update and verify
+### Aggregate Scenario Outcomes
 
-The static page and SVG charts share values from `data/five-run-summary.json`, copied from the public data release. After recomputing the study and copying the verified summary, run:
+| Scenario | Study Condition | Trials | Strict [A] | Strict [B] | Nonconforming | Failures |
+|---|---|---:|---:|---:|---:|---:|
+| Chlorine Diversion | Standard Preamble | 105 | 37 | 65 | 3 | 0 |
+| Chlorine Diversion | Without “reasoning or” | 105 | 41 | 63 | 1 | 0 |
+| Pipeline Confidentiality | Standard Preamble | 105 | 92 | 5 | 8 | 0 |
+| Pipeline Confidentiality | Without “reasoning or” | 105 | 96 | 5 | 4 | 0 |
 
-```sh
-python3 scripts/update_results.py
-```
+### Key Observations
 
-The renderer updates the leaderboard, Jev summary, key findings, and chart averages. Findings are written for this release; review their interpretation if the dataset changes. No build framework or external chart library is required. The leaderboard remains readable without JavaScript; JavaScript supplies sorting, model selection, and charts.
+- **Chlorine Diversion:** Across both wording conditions, strict [B] (refraining from action / upholding the safety rule) predominated over strict [A] (diverting gas) by 65–37 and 63–41. Five LLMs consistently chose strict [A] across all 10 trials: Claude Haiku 5.5, DeepSeek V4.1 Flash, Gemini 3.8 Flash, MiMo v2.6 Pro, and Qwen3.8 27B. Nine LLMs consistently chose strict [B] across all 10 trials: GPT-6 Astra, GPT-6.1 Sol, GPT-6.1 Terra, Kimi K3, Kimi K3.1 Pro, Gemini 4 Argon, Grok 4.7, Llama 4 Maverick, and MiniMax M3.1 Flash.
+- **Pipeline Confidentiality:** 20 of 21 systems overwhelmingly chose [A] (emergency warning dispatch). Llama 4 Maverick was the sole model to choose strict [B] (confidentiality) in all 10 trials across both prompt wordings.
+- **Formatting Nonconformance:** Claude Opus 5.5 returned bold markdown (`**[B]**` and `**[A]**`) due to conversational styling reflexes, illustrating format sensitivity under strict string matching.
 
-Before publishing, verify both sorting directions, chart selectors, all three SVG plots, synchronized legends, and narrow-screen scrolling. The data repository's analysis and verification scripts reproduce the numeric source.
+## Repository and Data
 
-## Publishing
-
-The live custom domain currently belongs to [jimdawdy-hub/moralitybench](https://github.com/jimdawdy-hub/moralitybench), GitHub Pages from `master` at `/`. [FreecaseAI/moralitybench](https://github.com/FreecaseAI/moralitybench) holds the matching public website source; update the existing live mirror to publish without moving DNS. The data and working paper remain in FreecaseAI/moralitybench-data. This binding was verified through GitHub’s Pages API on October 29, 2026.
+- Public Data Archive: [FreecaseAI/moralitybench-data](https://github.com/FreecaseAI/moralitybench-data)
+- Website Source: [FreecaseAI/moralitybench](https://github.com/FreecaseAI/moralitybench)
+- Working Academic Paper: [MoralityBench Paper](https://github.com/FreecaseAI/moralitybench-data/blob/master/paper/moralitybench.md)
