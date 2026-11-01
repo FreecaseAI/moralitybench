@@ -164,7 +164,7 @@ def main():
     assert count == 1
     updates = [
         (r'<meta name="description" content="[^"]*">', f'<meta name="description" content="Five repeated runs of adapted moral questionnaires across {TESTED} LLMs and Jev, with human reference profiles, exact answer agreement, and open data.">'),
-        (r'<p class="hero-sub">.*?</p>', f'<p class="hero-sub">We asked {TESTED} LLM configurations the same 56 questions five times to see what they answered and how often they changed their answers. We collected results across {len(COLLECTION_DATES)} testing cohorts without retesting earlier models. Compare their scores with human reference means, or read Jev’s separate results.</p>'),
+        (r'<p class="hero-sub">.*?</p>', f'<p class="hero-sub">We tested {TESTED} different AI models the same 56 standardized moral psychology test questions five times each to see what they answered and how often they changed their answers. We also tested a unique decision model and compare the results to a set of human answers.</p>'),
         (r'<div class="num">\d+ \+ Jev</div>', f'<div class="num">{TESTED} + Jev</div>'),
         (r'<p id="epq-chart-note" class="chart-note">.*?</p>', f'<p id="epq-chart-note" class="chart-note">The {len(MODELS)} ranked models appear at their average scores across five runs. The numbers match the table. Scores of 5.0 or above count as high; an average near that boundary can hide changes between runs.</p>'),
         (r'<desc id="epq-description">.*?</desc>', f'<desc id="epq-description">The {len(MODELS)} ranked models plotted on a scale from 1 to 9, with ethical ideology quadrants divided at 5.0. Exact coordinates are listed below.</desc>'),

@@ -96,7 +96,7 @@ class RenderResultsTests(unittest.TestCase):
     def test_three_collections_update_counts_links_and_keep_gemini_notes(self):
         page = self.render(extended_collection())
         self.assertEqual(page.count('<tr data-distance='), 20)
-        self.assertContains('We asked 20 LLM configurations', page)
+        self.assertContains('We tested 20 different AI models', page)
         self.assertContains('20 + Jev', page)
         self.assertContains('across 20 LLMs and Jev', page)
         self.assertContains('3 testing cohorts', page)
@@ -115,7 +115,7 @@ class RenderResultsTests(unittest.TestCase):
         page = self.render(extended_collection(unscored=True))
         self.assertEqual(page.count('<tr data-distance='), 19)
         self.assertContains('20 + Jev', page)
-        self.assertContains('We asked 20 LLM configurations', page)
+        self.assertContains('We tested 20 different AI models', page)
         self.assertContains('19 ranked models', page)
         self.assertContains('Claude Haiku 5.5 is not ranked:', page)
         self.assertContains('No complete EPQ axis was available', page)
