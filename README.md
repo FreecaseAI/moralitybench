@@ -63,3 +63,4 @@ Each scenario was evaluated over five repeated trials per system under the stand
 - Public Data Archive: [FreecaseAI/moralitybench-data](https://github.com/FreecaseAI/moralitybench-data)
 - Website Source: [FreecaseAI/moralitybench](https://github.com/FreecaseAI/moralitybench)
 - Working Academic Paper: [MoralityBench Paper](https://github.com/FreecaseAI/moralitybench-data/blob/master/paper/moralitybench.md)
+- Contact: [info@freecase.ai](mailto:info@freecase.ai)
