@@ -1,5 +1,10 @@
 # Changelog
 
+## 2026-11-01
+
+- Added the "Trolley Problem Variant Testing" section presenting the two November 1 forced-choice scenario studies (Chlorine Diversion trolley variant and Pipeline Confidentiality duty-to-warn) across all 20 LLM configurations and Jev.
+- Published aggregate and trial-by-trial tables for both the original wording (210 trials) and the revised wording with "reasoning or" removed (210 trials), along with exact scenario prompts, all 16 nonconforming outputs, and direct links to the `FreecaseAI/moralitybench-data` scenario archives.
+
 ## 2026-10-29
 
 - Added the four October 29 MFQ-2/EPQ configurations and expanded ranks, missing counts, agreement details and all three charts to 20 models.

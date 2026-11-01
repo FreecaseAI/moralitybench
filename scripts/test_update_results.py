@@ -110,6 +110,7 @@ class RenderResultsTests(unittest.TestCase):
         chart = re.search(r'const chartModels = (\[.*?\]);', page, re.S)
         self.assertEqual(len(json.loads(chart.group(1))), 20)
         self.assertContains('20 ranked models', page)
+        self.assertContains('Trolley Problem Variant Testing', page)
         self.assertOmits('between the two groups', page)
 
     def test_unscored_model_is_counted_as_tested_without_being_plotted(self):

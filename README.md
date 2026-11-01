@@ -1,8 +1,8 @@
 # MoralityBench.ai
 
-[Live website](https://moralitybench.ai) · [Public data and analysis](https://github.com/FreecaseAI/moralitybench-data/tree/master/repeated-runs/2026-10-29) · [Working paper](https://github.com/FreecaseAI/moralitybench-data/blob/master/paper/moralitybench.md)
+[Live website](https://moralitybench.ai) · [Public data and analysis](https://github.com/FreecaseAI/moralitybench-data/tree/master/repeated-runs/2026-10-29) · [Trolley & scenario studies](https://github.com/FreecaseAI/moralitybench-data/blob/master/scenarios/README.md) · [Working paper](https://github.com/FreecaseAI/moralitybench-data/blob/master/paper/moralitybench.md)
 
-The site compares questionnaire response profiles from 20 LLM configurations over five administrations across October 4, October 14 and October 29 collections, with a separate structured-decision comparison for Jev. It uses an adapted MFQ-2 and EPQ. The human reference is exploratory because wording and four Purity items differ from the original instrument.
+The site compares questionnaire response profiles from 20 LLM configurations over five administrations across October 4, October 14 and October 29 collections, with a separate structured-decision comparison for Jev. It also reports two November 1 forced-choice scenario studies (chlorine diversion trolley variant and pipeline confidentiality duty-to-warn) across all 20 LLMs and Jev under original and revised prompt wordings (420 total trials). It uses an adapted MFQ-2 and EPQ. The human reference is exploratory because wording and four Purity items differ from the original instrument.
 
 ## Results
 
