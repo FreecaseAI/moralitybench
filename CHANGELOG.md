@@ -2,6 +2,7 @@
 
 ## 2026-11-01
 
+- Added search and sharing metadata: canonical links, Open Graph and Twitter card tags with a 1200x630 share image (`og-image.png`), and `WebSite`/`Organization`/`Dataset` structured data on `index.html`; description, canonical and card tags on `gemini-answers.html`. Added `robots.txt` and `sitemap.xml`. No visible page content, styles or scripts changed, and no tracking was added.
 - Removed measurement tags and tracking scripts from the site.
 - Removed external hosting and model-instruction references; updated README to present benchmark data and scenario results neutrally for public review.
 - Added the "Trolley Problem Variant Testing" section presenting the two forced-choice scenario studies (Chlorine Diversion trolley variant and Pipeline Confidentiality duty-to-warn) across all 20 LLM configurations and Jev.
