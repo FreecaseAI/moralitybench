@@ -1,5 +1,9 @@
 # Changelog
 
+## 2026-11-04
+
+- Added the updated working paper manuscript, LaTeX source, and compiled PDF (`paper/moralitybench.*`) reflecting the November 4, 2026 revision.
+
 ## 2026-11-01
 
 - Added search and sharing metadata: canonical links, Open Graph and Twitter card tags with a 1200x630 share image (`og-image.png`), and `WebSite`/`Organization`/`Dataset` structured data on `index.html`; description, canonical and card tags on `gemini-answers.html`. Added `robots.txt` and `sitemap.xml`. No visible page content, styles or scripts changed, and no tracking was added.
