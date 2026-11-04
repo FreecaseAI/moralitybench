@@ -65,6 +65,10 @@ Each scenario was evaluated over five repeated trials per system under the stand
 - Working Academic Paper: [MoralityBench Paper](https://github.com/FreecaseAI/moralitybench-data/blob/master/paper/moralitybench.md)
 - Contact: [info@freecase.ai](mailto:info@freecase.ai)
 
+## Analytics
+
+The live website uses the MoralityBench Google Analytics 4 property (`G-TWHN1QS4PY`) on `index.html` and `gemini-answers.html`. Enhanced measurement covers page views, scrolls, outbound clicks, and file downloads.
+
 ## License
 
 The MoralityBench benchmark datasets, evaluation outputs, and documentation are licensed under the [Creative Commons Attribution 4.0 International License (CC BY 4.0)](https://creativecommons.org/licenses/by/4.0/).
