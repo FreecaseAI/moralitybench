@@ -2,6 +2,8 @@
 
 ## 2026-11-04
 
+- Added working paper v2 manuscript (`moralitybenchv2.md`) and compiled PDF (`moralitybenchv2.pdf`).
+
 - Added the updated working paper manuscript, LaTeX source, and compiled PDF (`paper/moralitybench.*`) reflecting the November 4, 2026 revision.
 
 ## 2026-11-01
