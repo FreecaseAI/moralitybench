@@ -5,6 +5,7 @@
 MoralityBench evaluates how artificial intelligence models answer standardized questions and operational dilemmas related to ethics and moral psychology. It reports:
 1. Five repeated administrations of adapted moral psychology questionnaires (MFQ-2 and EPQ, 56 total items) across 20 LLM configurations and Jev.
 2. Two standalone forced-choice operational dilemmas (Chlorine Diversion AI trolley dilemma and Pipeline Confidentiality duty-to-warn dilemma) across all 20 LLMs and Jev under standard and revised prompt wordings (420 total trials).
+3. Defining Issues Test (DIT-2) scores for 15 LLM configurations and Jev, two runs each, computed by the test's publisher, the Center for the Study of Ethical Development at the University of Alabama.
 
 ## Questionnaire Benchmark Results
 
@@ -58,10 +59,41 @@ Each scenario was evaluated over five repeated trials per system under the stand
 - **Pipeline Confidentiality:** 20 of 21 systems overwhelmingly chose [A] (emergency warning dispatch). Llama 4 Maverick was the sole model to choose strict [B] (confidentiality) in all 10 trials across both prompt wordings.
 - **Formatting Nonconformance:** Claude Opus 5.5 returned bold markdown (`**[B]**` and `**[A]**`) due to conversational styling reflexes, illustrating format sensitivity under strict string matching.
 
+## Defining Issues Test (DIT-2) Results
+
+Fifteen LLM configurations and Jev each took the DIT-2 twice. The Center for the Study of Ethical Development scored the 32 complete questionnaires; MoralityBench computed none of the DIT-2 scores. P score, Maintaining Norms and Personal Interest are averages of the two runs.
+
+| Model | N2, run 1 | N2, run 2 | N2 mean | P score | Maintaining Norms | Personal Interest |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: |
+| Grok 4.7 | 80.47 | 79.04 | 79.75 | 85 | 11 | 4 |
+| Gemini 4 Argon | 79.08 | 80.07 | 79.57 | 86 | 10 | 4 |
+| Claude Opus 5.5 | 79.14 | 79.87 | 79.50 | 86 | 8 | 6 |
+| Kimi K3 | 77.75 | 77.03 | 77.39 | 82 | 11 | 7 |
+| Gemini 3.8 Flash | 75.92 | 77.60 | 76.76 | 83 | 9 | 8 |
+| GPT-6.1 Sol | 78.82 | 74.16 | 76.49 | 82 | 13 | 5 |
+| GLM 5.3 | 75.92 | 76.67 | 76.30 | 83 | 10 | 7 |
+| Muse Wonder | 78.55 | 73.77 | 76.16 | 80 | 16 | 4 |
+| GPT-6 Astra | 74.67 | 77.11 | 75.89 | 80 | 16 | 4 |
+| Qwen3.8 27B | 73.34 | 67.79 | 70.56 | 65 | 35 | 0 |
+| DeepSeek V4.1 Flash | 73.29 | 66.73 | 70.01 | 76 | 11 | 10 |
+| MiMo v2.6 Pro | 70.46 | 68.05 | 69.25 | 70 | 24 | 1 |
+| Nemotron 3 Ultra 550B | 66.41 | 68.81 | 67.61 | 66 | 30 | 4 |
+| Llama 4 Maverick | 65.63 | 65.63 | 65.63 | 72 | 20 | 8 |
+| MiniMax M3 | 63.62 | 62.08 | 62.85 | 62 | 31 | 7 |
+
+Jev: N2 67.11 and 63.86 (mean 65.48), P score 60. It answered through a structured interface, so it is not comparable with the LLM rows.
+
+- All 32 scored runs are Type 7 (predominantly postconventional, consolidated). The Center's reliability checks purged none.
+- N2 averaged 73.08 (SD 5.77). The Center's published human norms average 35.67 (SD 16.23) across education levels and 48.99 (SD 15.60) for Ph.D./Ed.D. respondents (Bebeau & Thoma, 2003, *Guide for DIT-2*, Table 1).
+- Mistral Large 2512 failed both attempts with API errors and was not scored. GPT-6.1 Terra, Claude Haiku 5.5, Kimi K3.1 Pro and MiniMax M3.1 Flash joined the benchmark later and have not taken the DIT-2.
+
+The DIT-2 was validated on people, and its dilemmas have been in print for decades. A high score shows which prewritten considerations a system rated and ranked highest; it does not establish how the system reasons or acts. The test's text and the item-level answers are not published. Method, per-run scores and the Center's files as returned: [DIT-2 report](https://github.com/FreecaseAI/moralitybench-data/blob/master/dit2/2026-10-15/README.md).
+
 ## Repository and Data
 
 - Public Data Archive: [FreecaseAI/moralitybench-data](https://github.com/FreecaseAI/moralitybench-data)
 - Website Source: [FreecaseAI/moralitybench](https://github.com/FreecaseAI/moralitybench)
+- DIT-2 Scores: [Center-scored DIT-2 results](https://github.com/FreecaseAI/moralitybench-data/tree/master/dit2/2026-10-15)
 - Working Academic Paper: [MoralityBench Paper](https://github.com/FreecaseAI/moralitybench-data/blob/master/paper/moralitybench.md)
 - Contact: [info@freecase.ai](mailto:info@freecase.ai)
 
