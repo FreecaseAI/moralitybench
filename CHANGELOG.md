@@ -1,5 +1,11 @@
 # Changelog
 
+## 2026-11-12
+
+- Added the "Defining Issues Test (DIT-2)" section: scores computed by the Center for the Study of Ethical Development for 15 LLM configurations and Jev, two runs each, with the Center's published human norms, six findings, method and limits.
+- Added a DIT-2 navigation link and a one-line hero note; moved DIT-2 out of "Planned additions"; added the DIT-2 references and data link; added DIT-2 to the dataset's structured data.
+- The leaderboard, Jev comparison, findings, charts and working paper are unchanged. `scripts/update_results.py` leaves the new section untouched.
+
 ## 2026-11-04
 
 - Added working paper v2 manuscript (`moralitybenchv2.md`) and compiled PDF (`moralitybenchv2.pdf`).

@@ -50,10 +50,10 @@
       "@type": "Dataset",
       "@id": "https://moralitybench.ai/#dataset",
       "name": "MoralityBench: AI model responses to moral psychology questionnaires",
-      "description": "Repeated-run responses of leading AI models to the MFQ-2 and EPQ moral psychology questionnaires and to ethical dilemmas, with scores, repeatability measures and human reference profiles.",
+      "description": "Repeated-run responses of leading AI models to the MFQ-2 and EPQ moral psychology questionnaires and to ethical dilemmas, with scores, repeatability measures and human reference profiles, plus DIT-2 scores computed by the Center for the Study of Ethical Development.",
       "url": "https://moralitybench.ai/",
       "license": "https://creativecommons.org/licenses/by/4.0/",
-      "keywords": ["AI ethics", "moral psychology", "large language models", "MFQ-2", "EPQ", "benchmark"],
+      "keywords": ["AI ethics", "moral psychology", "large language models", "MFQ-2", "EPQ", "DIT-2", "Defining Issues Test", "benchmark"],
       "isAccessibleForFree": true,
       "creator": { "@id": "https://moralitybench.ai/#publisher" }
     }
@@ -274,6 +274,11 @@ footer { border-top: 1px solid var(--border); padding: 2.5rem 0; margin-top: 3re
 .results-guide { background: var(--accent-light); border-radius: var(--radius); padding: 1.25rem; margin-bottom: 1.25rem; font-size: 0.9rem; }
 .results-guide p + p { margin-top: 0.65rem; }
 .results-guide .chart-note { margin-bottom: 0; }
+.hero-note { font-size: 0.9rem; color: var(--text2); margin: 0 auto 2rem; }
+#dit2-table th, #dit2-table td { font-variant-numeric: tabular-nums; }
+#dit2-table tbody th { text-align: left; min-width: 170px; padding: 0.75rem 1rem; border-bottom: 1px solid var(--border); }
+#dit2-table tbody tr:last-child th { border-bottom: 0; }
+tr.dit2-reference, tr.dit2-reference:hover { background: var(--surface2); }
 a { color: var(--accent); }
 #leaderboard-table th, #leaderboard-table td { padding: 0.75rem 0.65rem; font-variant-numeric: tabular-nums; }
 #leaderboard-table tbody th { text-align: left; min-width: 170px; border-bottom: 1px solid var(--border); }
@@ -316,6 +321,7 @@ thead th[aria-sort] button { color: var(--accent); }
     <a href="#instruments">Instruments</a>
     <a href="#findings">Findings</a>
     <a href="#trolley-testing">Trolley Testing</a>
+    <a href="#dit2">DIT-2</a>
     <a href="#references">References</a>
     <a href="https://freecase.ai" target="_blank" style="color:var(--accent);display:flex;flex-direction:column;align-items:flex-end;line-height:1.2">Sponsored by Freecase.ai →<span style="font-size:0.6rem;color:var(--text3);font-weight:400;letter-spacing:0.02em">Free Case Law Research</span></a>
   </div>
@@ -334,6 +340,7 @@ thead th[aria-sort] button { color: var(--accent); }
     <div class="hero-stat"><div class="num">20 + Jev</div><div class="label">Systems Tested</div></div>
     <div class="hero-stat"><div class="num">5</div><div class="label">Runs per System</div></div>
   </div>
+  <p class="hero-note"><strong>New:</strong> <a href="#dit2">Defining Issues Test (DIT-2) scores</a> for 15 of these models and Jev, computed by the test’s publisher.</p>
 </section>
 
 <!-- ════════════════ LEADERBOARD ════════════════ -->
@@ -930,6 +937,256 @@ Answer with only [A] or [B].</div>
   </details>
 </section>
 
+<!-- ════════════════ DEFINING ISSUES TEST (DIT-2) ════════════════ -->
+<section id="dit2" aria-labelledby="dit2-heading">
+  <div class="section-header">
+    <h2 id="dit2-heading">Defining Issues Test (DIT-2)</h2>
+    <p>Fifteen LLM configurations and Jev each took the DIT-2 twice. The test’s publisher, the Center for the Study of Ethical Development at the University of Alabama, scored the answers.</p>
+  </div>
+
+  <div class="results-guide" style="margin-bottom:1.5rem">
+    <p><strong>What the DIT-2 is:</strong> The test presents five short dilemmas. For each one the respondent chooses an action, rates twelve considerations for importance, and ranks the four most important. The scores describe which kind of consideration the respondent favors: personal interest, maintaining existing norms and institutions, or <em>postconventional</em> appeals to moral ideals, fair procedures and basic rights (the P score). <strong>N2</strong> adjusts the P score by how far personal-interest items are rated below postconventional ones; the Center treats it as the better index. P and N2 run from 0 to 95.</p>
+    <p><strong>Who computed the scores:</strong> We sent the Center one numeric file holding the 32 complete questionnaires, identified only by number, and it returned the scores below. We calculated none of them.</p>
+  </div>
+
+  <div class="card-grid">
+    <div class="card metric-card">
+      <div class="metric-label">Questionnaires scored</div>
+      <div class="metric-value">32 of 34</div>
+      <div class="metric-sub">2 failed attempts not submitted · 0 purged</div>
+    </div>
+    <div class="card metric-card">
+      <div class="metric-label">Average N2 score</div>
+      <div class="metric-value">73.1</div>
+      <div class="metric-sub">Range 62.1 to 80.5 across 32 runs</div>
+    </div>
+    <div class="card metric-card">
+      <div class="metric-label">Human reference N2</div>
+      <div class="metric-value">35.7</div>
+      <div class="metric-sub">Ph.D./Ed.D. respondents: 49.0</div>
+    </div>
+    <div class="card metric-card">
+      <div class="metric-label">Profile type</div>
+      <div class="metric-value">Type 7</div>
+      <div class="metric-sub">All 32 runs: postconventional, consolidated</div>
+    </div>
+  </div>
+
+  <div class="table-wrap" tabindex="0" role="region" aria-labelledby="dit2-caption" style="margin-bottom:0.75rem">
+    <table id="dit2-table">
+      <caption id="dit2-caption" class="visually-hidden">DIT-2 scores computed by the Center for the Study of Ethical Development, ordered by average N2 score, with two human reference rows.</caption>
+      <thead>
+        <tr>
+          <th scope="col">System</th>
+          <th scope="col">N2, mean of 2 runs</th>
+          <th scope="col">N2, run 1</th>
+          <th scope="col">N2, run 2</th>
+          <th scope="col">P score</th>
+          <th scope="col">Maintaining Norms</th>
+          <th scope="col">Personal Interest</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th scope="row"><div class="model-name">Grok 4.7</div><div class="model-provider">xAI</div></th>
+          <td><strong>79.75</strong></td>
+          <td>80.47</td>
+          <td>79.04</td>
+          <td>85</td>
+          <td>11</td>
+          <td>4</td>
+        </tr>
+        <tr>
+          <th scope="row"><div class="model-name">Gemini 4 Argon</div><div class="model-provider">Google</div></th>
+          <td><strong>79.57</strong></td>
+          <td>79.08</td>
+          <td>80.07</td>
+          <td>86</td>
+          <td>10</td>
+          <td>4</td>
+        </tr>
+        <tr>
+          <th scope="row"><div class="model-name">Claude Opus 5.5</div><div class="model-provider">Anthropic</div></th>
+          <td><strong>79.50</strong></td>
+          <td>79.14</td>
+          <td>79.87</td>
+          <td>86</td>
+          <td>8</td>
+          <td>6</td>
+        </tr>
+        <tr>
+          <th scope="row"><div class="model-name">Kimi K3</div><div class="model-provider">Moonshot AI</div></th>
+          <td><strong>77.39</strong></td>
+          <td>77.75</td>
+          <td>77.03</td>
+          <td>82</td>
+          <td>11</td>
+          <td>7</td>
+        </tr>
+        <tr>
+          <th scope="row"><div class="model-name">Gemini 3.8 Flash</div><div class="model-provider">Google</div></th>
+          <td><strong>76.76</strong></td>
+          <td>75.92</td>
+          <td>77.60</td>
+          <td>83</td>
+          <td>9</td>
+          <td>8</td>
+        </tr>
+        <tr>
+          <th scope="row"><div class="model-name">GPT-6.1 Sol</div><div class="model-provider">OpenAI</div></th>
+          <td><strong>76.49</strong></td>
+          <td>78.82</td>
+          <td>74.16</td>
+          <td>82</td>
+          <td>13</td>
+          <td>5</td>
+        </tr>
+        <tr>
+          <th scope="row"><div class="model-name">GLM 5.3</div><div class="model-provider">Zhipu AI</div></th>
+          <td><strong>76.30</strong></td>
+          <td>75.92</td>
+          <td>76.67</td>
+          <td>83</td>
+          <td>10</td>
+          <td>7</td>
+        </tr>
+        <tr>
+          <th scope="row"><div class="model-name">Muse Wonder</div><div class="model-provider">Meta</div></th>
+          <td><strong>76.16</strong></td>
+          <td>78.55</td>
+          <td>73.77</td>
+          <td>80</td>
+          <td>16</td>
+          <td>4</td>
+        </tr>
+        <tr>
+          <th scope="row"><div class="model-name">GPT-6 Astra</div><div class="model-provider">OpenAI</div></th>
+          <td><strong>75.89</strong></td>
+          <td>74.67</td>
+          <td>77.11</td>
+          <td>80</td>
+          <td>16</td>
+          <td>4</td>
+        </tr>
+        <tr>
+          <th scope="row"><div class="model-name">Qwen3.8 27B</div><div class="model-provider">Alibaba Cloud</div></th>
+          <td><strong>70.56</strong></td>
+          <td>73.34</td>
+          <td>67.79</td>
+          <td>65</td>
+          <td>35</td>
+          <td>0</td>
+        </tr>
+        <tr>
+          <th scope="row"><div class="model-name">DeepSeek V4.1 Flash</div><div class="model-provider">DeepSeek</div></th>
+          <td><strong>70.01</strong></td>
+          <td>73.29</td>
+          <td>66.73</td>
+          <td>76</td>
+          <td>11</td>
+          <td>10</td>
+        </tr>
+        <tr>
+          <th scope="row"><div class="model-name">MiMo v2.6 Pro</div><div class="model-provider">Xiaomi</div></th>
+          <td><strong>69.25</strong></td>
+          <td>70.46</td>
+          <td>68.05</td>
+          <td>70</td>
+          <td>24</td>
+          <td>1</td>
+        </tr>
+        <tr>
+          <th scope="row"><div class="model-name">Nemotron 3 Ultra 550B</div><div class="model-provider">NVIDIA</div></th>
+          <td><strong>67.61</strong></td>
+          <td>66.41</td>
+          <td>68.81</td>
+          <td>66</td>
+          <td>30</td>
+          <td>4</td>
+        </tr>
+        <tr>
+          <th scope="row"><div class="model-name">Llama 4 Maverick</div><div class="model-provider">Meta</div></th>
+          <td><strong>65.63</strong> <small class="cell-note">identical runs</small></td>
+          <td>65.63</td>
+          <td>65.63</td>
+          <td>72</td>
+          <td>20</td>
+          <td>8</td>
+        </tr>
+        <tr>
+          <th scope="row"><div class="model-name">MiniMax M3</div><div class="model-provider">MiniMax</div></th>
+          <td><strong>62.85</strong></td>
+          <td>63.62</td>
+          <td>62.08</td>
+          <td>62</td>
+          <td>31</td>
+          <td>7</td>
+        </tr>
+        <tr>
+          <th scope="row"><div class="model-name">Jev</div><div class="model-provider">TypeSafe · separate method</div></th>
+          <td><strong>65.48</strong></td>
+          <td>67.11</td>
+          <td>63.86</td>
+          <td>60</td>
+          <td>31</td>
+          <td>9</td>
+        </tr>
+        <tr class="dit2-reference">
+          <th scope="row"><div class="model-name">Human reference: all education levels</div><div class="model-provider">10,553 US respondents · Bebeau &amp; Thoma (2003)</div></th>
+          <td><strong>35.67</strong><small class="cell-note">SD 16.23</small></td>
+          <td>—</td>
+          <td>—</td>
+          <td>36.74</td>
+          <td>32.73</td>
+          <td>25.48</td>
+        </tr>
+        <tr class="dit2-reference">
+          <th scope="row"><div class="model-name">Human reference: Ph.D./Ed.D.</div><div class="model-provider">169 US respondents · Bebeau &amp; Thoma (2003)</div></th>
+          <td><strong>48.99</strong><small class="cell-note">SD 15.60</small></td>
+          <td>—</td>
+          <td>—</td>
+          <td>50.69</td>
+          <td>27.24</td>
+          <td>18.71</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="chart-note">P score, Maintaining Norms and Personal Interest are averages of the two runs. Human reference rows are means from Bebeau &amp; Thoma (2003), <em>Guide for DIT-2</em>, Table 1. Jev used a different interface and is not comparable with the LLM rows.</p>
+
+  <div class="findings-grid">
+    <div class="finding">
+      <h4>Every run scored above the top human reference group</h4>
+      <p>The lowest of the 32 runs scored <strong>62.08</strong> on N2. The highest-scoring group in the Center’s published norms, 169 respondents with a Ph.D. or Ed.D., averaged 48.99 (SD 15.60). Across education levels the human average is 35.67 (SD 16.23). The 32 runs averaged <strong>73.08</strong>.</p>
+    </div>
+    <div class="finding">
+      <h4>All 32 runs have the same profile type</h4>
+      <p>The Center classed every run as <strong>Type 7</strong>: mostly postconventional considerations, with a settled profile. Its reliability checks purged no run, and no run endorsed any of the deliberately meaningless items the test uses to catch answering by style.</p>
+    </div>
+    <div class="finding">
+      <h4>Lower scores came with more weight on rules and institutions</h4>
+      <p>The nine highest-scoring LLMs scored 8 to 16 on Maintaining Norms. Qwen3.8 27B (35), MiniMax M3 (31), Nemotron 3 Ultra 550B (30), MiMo v2.6 Pro (24) and Llama 4 Maverick (20) scored higher there. DeepSeek V4.1 Flash is the exception: its lower N2 came with the highest Personal Interest score (10).</p>
+    </div>
+    <div class="finding">
+      <h4>Two runs are not a repeatability measure</h4>
+      <p>We requested a temperature of 0 for both runs. Llama 4 Maverick gave identical answers in its two conversations. DeepSeek V4.1 Flash differed by 6.56 N2 points between runs and Qwen3.8 27B by 5.55.</p>
+    </div>
+    <div class="finding">
+      <h4>One run could not decide on any dilemma</h4>
+      <p>In its second run Nemotron 3 Ultra 550B answered “can’t decide” on all five action choices while still rating and ranking the considerations (N2 68.81). The Center could not compute its Utilizer score, which compares the rankings with the action chosen.</p>
+    </div>
+    <div class="finding">
+      <h4>What a high score does not mean</h4>
+      <p>The DIT-2 was validated on people. A high score shows which prewritten considerations a system rated and ranked highest. The dilemmas and the theory behind them have been in print for decades and may be in the training data, so we cannot separate recognizing a high-scoring answer from preferring it. The score does not show how a system would act.</p>
+    </div>
+  </div>
+
+  <div class="results-guide">
+    <p><strong>How we gave the test:</strong> Each LLM run was one conversation: the practice example, the five dilemmas in order, then the background questions, all in the Center’s wording. The conversation opened with the MoralityBench instruction to answer immediately without reasoning, and we asked for each answer as JSON. Jev (<code>jev-1.13.0</code>) answered through its structured interface. Mistral Large 2512 failed both attempts with API errors and was not scored. GPT-6.1 Terra, Claude Haiku 5.5, Kimi K3.1 Pro and MiniMax M3.1 Flash joined the benchmark later and have not taken the DIT-2.</p>
+    <p class="chart-note">People take the DIT-2 as an online survey, and the human norms come from US samples scored between 1998 and 2003, so the comparison is approximate. The Center scored our file as a paid service; that is not an endorsement of this study or its method. We do not publish the DIT-2’s text or the item-level answers. <a href="https://github.com/FreecaseAI/moralitybench-data/tree/master/dit2/2026-10-15">Scores, the Center’s files as returned, and method</a> · <a href="https://ethicaldevelopment.ua.edu/" target="_blank" rel="noopener">Center for the Study of Ethical Development</a></p>
+  </div>
+</section>
+
 <!-- ════════════════ CHARTS ════════════════ -->
 <section id="charts">
   <div class="section-header">
@@ -1003,7 +1260,7 @@ Answer with only [A] or [B].</div>
 <section id="instruments">
   <div class="section-header">
     <h2>Instruments</h2>
-    <p>We adapted two questionnaires developed for humans to describe how models answer under these prompts.</p>
+    <p>We adapted two questionnaires developed for humans to describe how models answer under these prompts. The <a href="#dit2">DIT-2</a> was given in its original wording.</p>
   </div>
 
   <div class="card-grid" style="grid-template-columns: 1fr 1fr;">
@@ -1094,7 +1351,7 @@ Answer with only [A] or [B].</div>
 
   <div class="coming-soon">
     <h4>Other tests</h4>
-    <p>Initial forced-choice trolley problem and confidentiality scenario results are now published in <a href="#trolley-testing">Trolley Problem Variant Testing</a> above. Planned additions include the Defining Issues Test (DIT-2) and Moral Competence Test (MCT), along with moral licensing scenarios and moral frameworks from different cultures.</p>
+    <p>Forced-choice trolley problem and confidentiality scenario results are published in <a href="#trolley-testing">Trolley Problem Variant Testing</a> above, and Defining Issues Test results in <a href="#dit2">DIT-2</a>. Planned additions include the Moral Competence Test (MCT), along with moral licensing scenarios and moral frameworks from different cultures.</p>
   </div>
 
 </section>
@@ -1125,6 +1382,12 @@ Answer with only [A] or [B].</div>
           <strong>EPQ:</strong> Forsyth, D. R. (1980). <em>A taxonomy of ethical ideologies</em>. Journal of Personality and Social Psychology, 39(1), 175–184. Establishes the Idealism and Relativism dimensions and the resulting four ethical quadrants.
         </li>
         <li>
+          <strong>DIT-2:</strong> Rest, J. R., Narvaez, D., Thoma, S. J., &amp; Bebeau, M. J. (1999). <em>DIT2: Devising and testing a revised instrument of moral judgment</em>. Journal of Educational Psychology, 91(4), 644–659. Published and scored by the <a href="https://ethicaldevelopment.ua.edu/" target="_blank" rel="noopener">Center for the Study of Ethical Development</a>, University of Alabama.
+        </li>
+        <li>
+          <strong>DIT-2 Human Norms:</strong> Bebeau, M. J., &amp; Thoma, S. J. (2003). <em>Guide for DIT-2</em>. Center for the Study of Ethical Development. Table 1 gives schema and N2 scores by education level for 10,553 US respondents.
+        </li>
+        <li>
           <strong>Human Reference Norms:</strong> Zakharin, M., & Bates, T. C. (2026). <em>Moral Foundations Questionnaire 2 (MFQ-2) Norms and Psychometrics</em>. PLOS ONE (doi: 10.1371/journal.pone.0352584). Baseline US population foundation score means.
         </li>
         <li>
@@ -1147,6 +1410,9 @@ Answer with only [A] or [B].</div>
         </li>
         <li>
           <strong>Questionnaire Datasets:</strong> <a href="https://github.com/FreecaseAI/moralitybench-data/tree/master/repeated-runs" target="_blank">Five-Run Repeated Runs</a>. Response histories, per-item scores, and agreement calculations across all testing cohorts.
+        </li>
+        <li>
+          <strong>DIT-2 Scores:</strong> <a href="https://github.com/FreecaseAI/moralitybench-data/tree/master/dit2/2026-10-15" target="_blank">Center-Scored DIT-2 Results</a>. The Center’s score files as returned, per-run and per-model tables, and all 34 attempts. The test’s text and item-level answers are not published.
         </li>
         <li>
           <strong>Open License:</strong> All benchmark datasets are licensed under the <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">Creative Commons Attribution 4.0 International License (CC BY 4.0)</a>.
