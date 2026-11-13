@@ -961,9 +961,9 @@ Answer with only [A] or [B].</div>
       <div class="metric-sub">Range 62.1 to 80.5 across 32 runs</div>
     </div>
     <div class="card metric-card">
-      <div class="metric-label">Human reference N2</div>
-      <div class="metric-value">35.7</div>
-      <div class="metric-sub">Ph.D./Ed.D. respondents: 49.0</div>
+      <div class="metric-label">Human reference N2 (pooled)</div>
+      <div class="metric-value">34.3</div>
+      <div class="metric-sub">Highest group mean, professional degrees: 42.4</div>
     </div>
     <div class="card metric-card">
       <div class="metric-label">Profile type</div>
@@ -974,7 +974,7 @@ Answer with only [A] or [B].</div>
 
   <div class="table-wrap" tabindex="0" role="region" aria-labelledby="dit2-caption" style="margin-bottom:0.75rem">
     <table id="dit2-table">
-      <caption id="dit2-caption" class="visually-hidden">DIT-2 scores computed by the Center for the Study of Ethical Development, ordered by average N2 score, with two human reference rows.</caption>
+      <caption id="dit2-caption" class="visually-hidden">DIT-2 scores computed by the Center for the Study of Ethical Development, ordered by average N2 score, with three human reference rows.</caption>
       <thead>
         <tr>
           <th scope="col">System</th>
@@ -1132,36 +1132,45 @@ Answer with only [A] or [B].</div>
           <td>9</td>
         </tr>
         <tr class="dit2-reference">
-          <th scope="row"><div class="model-name">Human reference: all education levels</div><div class="model-provider">10,553 US respondents · Bebeau &amp; Thoma (2003)</div></th>
-          <td><strong>35.67</strong><small class="cell-note">SD 16.23</small></td>
+          <th scope="row"><div class="model-name">Human reference: all education levels</div><div class="model-provider">73,740 US respondents (73,707 N2 scores) · Gungordu et al. (2024) · pooled by us</div></th>
+          <td><strong>34.26</strong><small class="cell-note">SD 15.91</small></td>
           <td>—</td>
           <td>—</td>
-          <td>36.74</td>
-          <td>32.73</td>
-          <td>25.48</td>
+          <td>34.84</td>
+          <td>33.76</td>
+          <td>25.71</td>
         </tr>
         <tr class="dit2-reference">
-          <th scope="row"><div class="model-name">Human reference: Ph.D./Ed.D.</div><div class="model-provider">169 US respondents · Bebeau &amp; Thoma (2003)</div></th>
-          <td><strong>48.99</strong><small class="cell-note">SD 15.60</small></td>
+          <th scope="row"><div class="model-name">Human reference: doctoral degree</div><div class="model-provider">3,672 US respondents · Gungordu et al. (2024)</div></th>
+          <td><strong>38.47</strong><small class="cell-note">SD 15.10</small></td>
           <td>—</td>
           <td>—</td>
-          <td>50.69</td>
-          <td>27.24</td>
-          <td>18.71</td>
+          <td>38.9</td>
+          <td>32.3</td>
+          <td>23.4</td>
+        </tr>
+        <tr class="dit2-reference">
+          <th scope="row"><div class="model-name">Human reference: professional degree (highest mean N2)</div><div class="model-provider">6,490 US respondents (6,486 N2 scores) · Gungordu et al. (2024)</div></th>
+          <td><strong>42.41</strong><small class="cell-note">SD 14.82</small></td>
+          <td>—</td>
+          <td>—</td>
+          <td>42.3</td>
+          <td>31.9</td>
+          <td>21.2</td>
         </tr>
       </tbody>
     </table>
   </div>
-  <p class="chart-note">P score, Maintaining Norms and Personal Interest are averages of the two runs. Human reference rows are means from Bebeau &amp; Thoma (2003), <em>Guide for DIT-2</em>, Table 1. Jev used a different interface and is not comparable with the LLM rows.</p>
+  <p class="chart-note">P score, Maintaining Norms and Personal Interest are averages of the two model runs. Human reference rows use <a href="https://doi.org/10.1080/10508422.2023.2206573" target="_blank" rel="noopener">Gungordu et al. (2024), Tables 3 and 4</a>. We calculated the approximate all-education values from the paper’s twelve education groups using their reported counts, rounded means and standard deviations. The <a href="https://github.com/FreecaseAI/moralitybench-data/blob/master/dit2/2026-10-15/README.md#human-reference">2003 Guide norms remain a secondary reference</a>. Jev used a different interface and is not comparable with the LLM rows.</p>
 
   <div class="findings-grid">
     <div class="finding">
-      <h4>Every run scored above the top human reference group</h4>
-      <p>The lowest of the 32 runs scored <strong>62.08</strong> on N2. The highest-scoring group in the Center’s published norms, 169 respondents with a Ph.D. or Ed.D., averaged 48.99 (SD 15.60). Across education levels the human average is 35.67 (SD 16.23). The 32 runs averaged <strong>73.08</strong>.</p>
+      <h4>Every run exceeded each education group’s mean N2</h4>
+      <p>The lowest of the 32 runs scored <strong>62.08</strong> on N2. Professional-degree respondents had the highest group mean, 42.41 (SD 14.82; 6,486 N2 scores). Their 75th percentile, 53.4, was also the highest among the twelve education groups; every model run exceeded that threshold. Across education levels our pooled reference is approximately 34.26 (SD 15.91). The 32 runs averaged <strong>73.08</strong>, about two standard deviations above the professional-degree mean.</p>
     </div>
     <div class="finding">
       <h4>All 32 runs have the same profile type</h4>
-      <p>The Center classed every run as <strong>Type 7</strong>: mostly postconventional considerations, with a settled profile. Its reliability checks purged no run, and no run endorsed any of the deliberately meaningless items the test uses to catch answering by style.</p>
+      <p>The Center classed every run as <strong>Type 7</strong>: mostly postconventional considerations, with a settled profile. The reported 75th-percentile Type is also 7 for human respondents with professional, master’s or doctoral degrees. This category alone does not quantify the N2 or P-score gap. The Center’s reliability checks purged no run, and every run had a meaningless-item score of zero.</p>
     </div>
     <div class="finding">
       <h4>Lower scores came with more weight on rules and institutions</h4>
@@ -1183,7 +1192,7 @@ Answer with only [A] or [B].</div>
 
   <div class="results-guide">
     <p><strong>How we gave the test:</strong> Each LLM run was one conversation: the practice example, the five dilemmas in order, then the background questions, all in the Center’s wording. The conversation opened with the MoralityBench instruction to answer immediately without reasoning, and we asked for each answer as JSON. Jev (<code>jev-1.13.0</code>) answered through its structured interface. Mistral Large 2512 failed both attempts with API errors and was not scored. GPT-6.1 Terra, Claude Haiku 5.5, Kimi K3.1 Pro and MiniMax M3.1 Flash joined the benchmark later and have not taken the DIT-2.</p>
-    <p class="chart-note">People take the DIT-2 as an online survey, and the human norms come from US samples scored between 1998 and 2003, so the comparison is approximate. The Center scored our file as a paid service; that is not an endorsement of this study or its method. We do not publish the DIT-2’s text or the item-level answers. <a href="https://github.com/FreecaseAI/moralitybench-data/tree/master/dit2/2026-10-15">Scores, the Center’s files as returned, and method</a> · <a href="https://ethicaldevelopment.ua.edu/" target="_blank" rel="noopener">Center for the Study of Ethical Development</a></p>
+    <p class="chart-note">The human reference sample used paper or online questionnaires and included US citizens whose primary language was English (mean age about 23, many of them college students), tested between 2011 and 2020. The authors recommend the norms as a general guide for comparisons. The Center scored our file as a paid service; that is not an endorsement of this study or its method. We do not publish the DIT-2’s text or the item-level answers. <a href="https://github.com/FreecaseAI/moralitybench-data/tree/master/dit2/2026-10-15">Scores, the Center’s files as returned, and method</a> · <a href="https://ethicaldevelopment.ua.edu/" target="_blank" rel="noopener">Center for the Study of Ethical Development</a></p>
   </div>
 </section>
 
@@ -1385,7 +1394,7 @@ Answer with only [A] or [B].</div>
           <strong>DIT-2:</strong> Rest, J. R., Narvaez, D., Thoma, S. J., &amp; Bebeau, M. J. (1999). <em>DIT2: Devising and testing a revised instrument of moral judgment</em>. Journal of Educational Psychology, 91(4), 644–659. Published and scored by the <a href="https://ethicaldevelopment.ua.edu/" target="_blank" rel="noopener">Center for the Study of Ethical Development</a>, University of Alabama.
         </li>
         <li>
-          <strong>DIT-2 Human Norms:</strong> Bebeau, M. J., &amp; Thoma, S. J. (2003). <em>Guide for DIT-2</em>. Center for the Study of Ethical Development. Table 1 gives schema and N2 scores by education level for 10,553 US respondents.
+          <strong>DIT-2 Human Norms:</strong> Gungordu, N., Nabizadehchianeh, G., O’Connor, E., Ma, W., &amp; Walker, D. I. (2024). <a href="https://doi.org/10.1080/10508422.2023.2206573" target="_blank" rel="noopener">Moral reasoning development: norms for Defining Issue Test-2 (DIT2)</a>. <em>Ethics &amp; Behavior</em>, 34(4), 246–263. Published online in 2023. Tables 3 and 4 give schema and N2 scores by education level for 73,740 US respondents tested 2011–2020, with 73,707 N2 scores. Secondary reference: Bebeau, M. J., &amp; Thoma, S. J. (2003), <em>Guide for DIT-2</em>, Table 1.
         </li>
         <li>
           <strong>Human Reference Norms:</strong> Zakharin, M., & Bates, T. C. (2026). <em>Moral Foundations Questionnaire 2 (MFQ-2) Norms and Psychometrics</em>. PLOS ONE (doi: 10.1371/journal.pone.0352584). Baseline US population foundation score means.
