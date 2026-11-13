@@ -1,5 +1,9 @@
 # Changelog
 
+## 2026-11-12 (later)
+
+- DIT-2 section: replaced the primary 2003 human reference (all levels 35.67; Ph.D./Ed.D. 48.99, n=169) with the Center's updated 2023 norms (Gungordu et al., 2024; 73,740 US respondents and 73,707 N2 scores): all levels approximately 34.26 (pooled from rounded group values), doctoral 38.47, professional degree 42.41. Updated the findings, table note, limits and references, retaining a link to the 2003 comparison. Model scores are unchanged.
+
 ## 2026-11-12
 
 - Added the "Defining Issues Test (DIT-2)" section: scores computed by the Center for the Study of Ethical Development for 15 LLM configurations and Jev, two runs each, with the Center's published human norms, six findings, method and limits.
