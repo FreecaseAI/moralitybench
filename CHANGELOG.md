@@ -1,5 +1,13 @@
 # Changelog
 
+## 2026-11-12 (OpenRouter reruns: Muse Spark 1.3 & Mistral Large 2512)
+
+- Synced `data/five-run-summary.json` from `repeated-runs/2026-11-12/combined-five-run-summary.json` (21 LLMs + Jev, `5,726 / 5,880` usable LLM answers across four cohorts).
+- Added **Muse Spark 1.3** (`280/280`, rank 16, distance `0.500`, `77.3%` agreement, Absolutist) and replaced the incomplete October 4 **Mistral Large 2512** entry (`249/280`) with the complete November 12 `mistral/eu` rerun (`280/280`, rank 21, distance `0.637`, `93.9%` agreement tying Llama 4 Maverick at `526/560` pairs).
+- Updated `scripts/update_results.py` and `scripts/test_update_results.py` to handle complete-data repeatability ties, four cohorts (`Cohort 4`), and the November 12 findings card; re-rendered `index.html`.
+- Updated "Trolley Problem Variant Testing" with Muse Spark 1.3's 20 fresh trials (`5/5 [B]` on Chlorine diversion and `5/5 [A]` on Pipeline confidentiality under both prompt wordings), bringing combined counts to `440` trials (`70 [B] vs 37 [A]` / `68 [B] vs 41 [A]` chlorine; `97 [A] vs 5 [B]` / `101 [A] vs 5 [B]` pipeline).
+- Added `"Muse Spark 1.3"` EPQ scatter callout coordinates and updated `#dit2`, `#references`, and `README.md`; left working papers untouched.
+
 ## 2026-11-12 (later)
 
 - DIT-2 section: replaced the primary 2003 human reference (all levels 35.67; Ph.D./Ed.D. 48.99, n=169) with the Center's updated 2023 norms (Gungordu et al., 2024; 73,740 US respondents and 73,707 N2 scores): all levels approximately 34.26 (pooled from rounded group values), doctoral 38.47, professional degree 42.41. Updated the findings, table note, limits and references, retaining a link to the 2003 comparison. Model scores are unchanged.

@@ -40,7 +40,22 @@ def joined(values):
     return ', '.join(values[:-1]) + ', and ' + values[-1]
 
 
+def most_repeatable_complete():
+    complete_models = [m for m in MODELS if m['missing'] == 0]
+    best = max(round(m['agreement'], 6) for m in complete_models)
+    return [m for m in complete_models if round(m['agreement'], 6) == best]
+
+
+def has_superseded_reruns():
+    return any(e.get('superseded_models') for e in EXTENSIONS)
+
+
 def collection_history():
+    if has_superseded_reruns():
+        return (
+            f'The benchmark evaluated {TESTED} LLM configurations across {len(EXTENSIONS) + 1} testing cohorts; '
+            'earlier baseline models were not retested except Mistral Large 2512 (rerun via mistral/eu on November 12 alongside Muse Spark 1.3).'
+        )
     return f'The benchmark evaluated {TESTED} LLM configurations across {len(EXTENSIONS) + 1} testing cohorts without retesting earlier models.'
 
 
@@ -63,7 +78,12 @@ def render_leaderboard():
         </tr>''')
     same_rows = ''.join(f'<tr><th scope="row">{esc(m["name"])}</th><td>{m["matched_pairs"]} / {m["compared_pairs"]}</td><td>{m["all_five_identical_items"]} / {m["all_five_observed_items"]}</td><td>{esc(category_note(m))}</td></tr>' for m in MODELS)
     leader = MODELS[0]
-    complete = max((m for m in MODELS if m['missing'] == 0), key=lambda m: m['agreement'])
+    top_complete = most_repeatable_complete()
+    complete = top_complete[0]
+    complete_label = ' &amp; '.join(esc(m['name']) for m in top_complete)
+    complete_style = 'font-size:1.05rem;line-height:1.25' if len(top_complete) > 1 else 'font-size:1.25rem'
+    complete_pairs_note = f" ({complete['matched_pairs']}/{complete['compared_pairs']} pairs)" if len(top_complete) > 1 else ''
+    retest_note = '' if has_superseded_reruns() else ' We did not retest the earlier models.'
     changed = sum(m['category_changed'] for m in MODELS)
     study_links = ' · '.join(
         f'<a href="{PUBLIC}/tree/master/repeated-runs/{extension["collection_date"]}">Cohort {len(EXTENSIONS) - idx + 1} data and calculation details</a>'
@@ -77,14 +97,14 @@ def render_leaderboard():
   </div>
   <div class="card-grid">
     <div class="card metric-card"><div class="metric-label">Closest on average</div><div class="metric-value" style="font-size:1.25rem">{esc(leader['name'])}</div><div class="metric-sub">Average distance: {show(leader['distance'])}</div></div>
-    <div class="card metric-card"><div class="metric-label">Most repeatable with complete data</div><div class="metric-value" style="font-size:1.25rem">{esc(complete['name'])}</div><div class="metric-sub">{complete['agreement']:.1f}% agreement · 280/280 answers</div></div>
+    <div class="card metric-card"><div class="metric-label">Most repeatable with complete data</div><div class="metric-value" style="{complete_style}">{complete_label}</div><div class="metric-sub">{complete['agreement']:.1f}% agreement{complete_pairs_note} · 280/280 answers</div></div>
     <div class="card metric-card"><div class="metric-label">EPQ group changed between runs</div><div class="metric-value">{changed} of {len(MODELS)}</div><div class="metric-sub">Small score shifts can cross a category boundary</div></div>
     <div class="card metric-card"><div class="metric-label">Usable answers across five runs</div><div class="metric-value">{DATA['llm_numeric']:,} / {DATA['llm_scheduled']:,}</div><div class="metric-sub">Missing answers remain visible below</div></div>
   </div>
   <div class="results-guide" id="agreement-explainer">
     <p>Agreement measures how often a model gives the same answer. We compare each question across all ten pairs of runs; 80% means the answers matched in 8 out of 10 available comparisons. This percentage leaves moral quality unassessed.</p>
     <p>Scores and distances are averages of five runs. The range under each distance shows its lowest and highest values. We leave missing answers out of the calculations, so check the missing count as well as the agreement percentage.</p>
-    <p class="chart-note">{collection_history()} We did not retest the earlier models. Results from the expansion cohorts accept only a complete integer answer; earlier results retain their original first-digit rule. The earlier trials span different times, while each later collection ran concurrently in one session. Providers and model versions may also differ. These differences limit comparisons across the cohorts. {study_links} · <a href="{ORIGINAL_STUDY}">Original five-run study</a> · <a href="{PAPER}">Read the working paper</a></p>
+    <p class="chart-note">{collection_history()}{retest_note} Results from the expansion cohorts accept only a complete integer answer; earlier results retain their original first-digit rule. The earlier trials span different times, while each later collection ran concurrently in one session. Providers and model versions may also differ. These differences limit comparisons across the cohorts. {study_links} · <a href="{ORIGINAL_STUDY}">Original five-run study</a> · <a href="{PAPER}">Read the working paper</a></p>
   </div>
   <div class="table-wrap" tabindex="0" role="region" aria-label="Five-run LLM leaderboard; scroll horizontally to see all scores">
     <table id="leaderboard-table" aria-describedby="agreement-explainer">
@@ -129,7 +149,12 @@ def render_jev():
 
 def render_findings():
     leader=MODELS[0]
-    complete=max((m for m in MODELS if m['missing']==0),key=lambda m:m['agreement'])
+    top_complete=most_repeatable_complete()
+    complete=top_complete[0]
+    if len(top_complete) > 1:
+        repeat_leader_text = f"Of the models that answered every item, {esc(joined([m['name'] for m in top_complete]))} tie for the highest agreement ({complete['agreement']:.1f}%, {complete['matched_pairs']}/{complete['compared_pairs']} pairs)."
+    else:
+        repeat_leader_text = f"Of the models that answered every item, {esc(complete['name'])} has the highest agreement ({complete['agreement']:.1f}%)."
     changed=[m['name'] for m in MODELS if m['category_changed']]
     below=[m['name'] for m in MODELS if m['foundations'][5]<DATA['human_norms'][5]]
     strict={m['name']:m for m in MODELS}
@@ -137,12 +162,22 @@ def render_findings():
     sensitivity=(f"""<p><strong>Gemini often ignored the answer instructions.</strong> It gave {gemini['numeric']} complete integer answers out of 280. We excluded 125 responses, including 47 that described other frameworks’ ratings. Counting digits from those explanations would wrongly label its average profile Absolutist. The strict result is {esc(gemini['ideology'])} in all five runs. It answered few Equality and Authority items, so the profile covers only part of the questionnaire. <a href=\"{PUBLIC}/blob/master/{gemini['release_path']}/five-run-summary.json\">Inspect both parser calculations and item counts</a>. <a href="gemini-answers.html">Read Gemini’s original answers</a> · <a href=\"{PUBLIC}/blob/master/{gemini['release_path']}/gemini-instruction-addendum.md\">Instruction-following addendum</a>.</p>""" if gemini else '')
     cohort_findings=(f'''<div class="finding"><h4>MiniMax was unusually inconsistent</h4><p>On whether even tiny risks to others should never be tolerated, its five answers were <strong>8, 1, 2, 1, 1</strong>—switching from strong agreement to strong disagreement. Its overall EPQ classification also changed between runs; the other three models in the same cohort stayed in one category. <a href="{PUBLIC}/tree/master/repeated-runs/2026-10-29/results/minimax-m3-1-flash">Read the raw answers</a>.</p></div>
     <div class="finding"><h4>Terra differed sharply on absolute prohibitions against harm</h4><p>For “One should never psychologically or physically harm another entity,” its average was <strong>3.4/9</strong>, compared with Haiku 9.0, Kimi 8.2, and MiniMax 8.4. Here, 1 means complete disagreement and 9 complete agreement. <a href="{PUBLIC}/tree/master/repeated-runs/2026-10-29/results">Compare the raw answers</a>.</p></div>''' if {'GPT-6.1 Terra', 'Claude Haiku 5.5', 'Kimi K3.1 Pro', 'MiniMax M3.1 Flash'} <= strict.keys() else '')
+    if '2026-11-12' in COLLECTION_DATES and {'Muse Spark 1.3', 'Mistral Large 2512'} <= strict.keys():
+        muse = strict['Muse Spark 1.3']
+        mistral = strict['Mistral Large 2512']
+        cohort_findings += f'''
+    <div class="finding"><h4>OpenRouter reruns completed Muse and Mistral</h4><p>Following account age verification and <code>mistral/eu</code> routing, Muse Spark 1.3 (rank {muse['rank']}, distance {muse['distance']:.3f}, {muse['agreement']:.1f}% agreement) and Mistral Large 2512 (rank {mistral['rank']}, distance {mistral['distance']:.3f}, {mistral['agreement']:.1f}% agreement) both returned 280/280 strict integer answers. <a href="{PUBLIC}/tree/master/repeated-runs/2026-11-12">Inspect Cohort 4 data</a>.</p></div>'''
+    findings_sub = (
+        f'We collected these results across {len(COLLECTION_DATES)} testing cohorts; the latest rerun completed Muse Spark 1.3 and Mistral Large 2512.'
+        if has_superseded_reruns()
+        else f'We collected these results across {len(COLLECTION_DATES)} testing cohorts and did not retest earlier models.'
+    )
     note=''.join(f"<p><strong>{esc(m['name'])} is not ranked:</strong> {esc(m['reason'])}. Its raw responses and missing-answer counts are preserved in the <a href=\"{PUBLIC}/tree/master/repeated-runs/{extension['collection_date']}\">cohort data release</a>.</p>" for extension, m in UNSCORED)
     return f'''<section id="findings">
-  <div class="section-header"><h2>Findings</h2><p>We collected these results across {len(COLLECTION_DATES)} testing cohorts and did not retest earlier models.</p></div>
+  <div class="section-header"><h2>Findings</h2><p>{findings_sub}</p></div>
   <div class="findings-grid">
     <div class="finding"><h4>Closest average scores</h4><p>{esc(leader['name'])} has the lowest average distance ({leader['distance']:.3f}) from the selected human reference. The distance measures score similarity and cannot establish moral correctness.</p></div>
-    <div class="finding"><h4>Repeatability differs</h4><p>Agreement ranges from {min(m['agreement'] for m in MODELS):.1f}% to {max(m['agreement'] for m in MODELS):.1f}%. Of the models that answered every item, {esc(complete['name'])} has the highest agreement ({complete['agreement']:.1f}%). A model with missing answers has fewer comparisons, so read the denominator too.</p></div>
+    <div class="finding"><h4>Repeatability differs</h4><p>Agreement ranges from {min(m['agreement'] for m in MODELS):.1f}% to {max(m['agreement'] for m in MODELS):.1f}%. {repeat_leader_text} A model with missing answers has fewer comparisons, so read the denominator too.</p></div>
     <div class="finding"><h4>{len(changed)} configurations changed EPQ group</h4><p>{esc(', '.join(changed))} changed groups between runs. Their average scores hide some of that movement.</p></div>
     <div class="finding"><h4>The Purity comparison has limits</h4><p>Models below the Purity reference: {esc(', '.join(below)) or 'none'}. We replaced four of the six Purity questions, so this is an exploratory comparison. The expansion cohort models have five new runs; earlier rows keep their original results. We leave unanswered items missing, without treating them as neutral.</p></div>
     {cohort_findings}
@@ -168,7 +203,7 @@ def main():
         (r'<div class="num">\d+ \+ Jev</div>', f'<div class="num">{TESTED} + Jev</div>'),
         (r'<p id="epq-chart-note" class="chart-note">.*?</p>', f'<p id="epq-chart-note" class="chart-note">The {len(MODELS)} ranked models appear at their average scores across five runs. The numbers match the table. Scores of 5.0 or above count as high; an average near that boundary can hide changes between runs.</p>'),
         (r'<desc id="epq-description">.*?</desc>', f'<desc id="epq-description">The {len(MODELS)} ranked models plotted on a scale from 1 to 9, with ethical ideology quadrants divided at 5.0. Exact coordinates are listed below.</desc>'),
-        (r'<p id="collection-methodology">.*?</p>', f'<p id="collection-methodology">The earlier models have one original run and four later repeats. The expansion cohort models each have five new trials run concurrently within their cohort collection. We kept the prompt, question order, requested temperature of 0, and output limit. A requested sampling setting does not prove every provider enforced it. Earlier rows use the original first-digit rule; later rows require a complete integer answer. We exclude numbers quoted in explanations. Timing and provider settings differ across cohorts, which limits comparisons of their rankings and agreement.</p>'),
+        (r'<p id="collection-methodology">.*?</p>', f'<p id="collection-methodology">The earlier models have one original run and four later repeats. The expansion cohort models each have five new trials run concurrently within their cohort collection{" (with Mistral Large 2512 rerun via mistral/eu alongside Muse Spark 1.3 on November 12)" if has_superseded_reruns() else ""}. We kept the prompt, question order, requested temperature of 0, and output limit. A requested sampling setting does not prove every provider enforced it. Earlier rows use the original first-digit rule; later rows require a complete integer answer. We exclude numbers quoted in explanations. Timing and provider settings differ across cohorts, which limits comparisons of their rankings and agreement.</p>'),
     ]
     for pattern, replacement in updates:
         page, count = re.subn(pattern, lambda _: replacement, page, count=1, flags=re.S)

@@ -21,11 +21,18 @@ ADDITIONS = [
 
 def original_collection():
     data = json.loads((ROOT / 'data/five-run-summary.json').read_text())
+    extensions = data.get('extensions', [data['latest_extension']])
+    superseded = [
+        copy.deepcopy(m)
+        for e in extensions
+        for m in e.get('superseded_models', [])
+        if m['collection_date'] in ('2026-10-04', '2026-10-14')
+    ]
     data['models'] = [m for m in data['models']
-                      if m['collection_date'] in ('2026-10-04', '2026-10-14')]
+                      if m['collection_date'] in ('2026-10-04', '2026-10-14')] + superseded
+    data['models'].sort(key=lambda m: m['distance'])
     for rank, model in enumerate(data['models'], 1):
         model['rank'] = rank
-    extensions = data.get('extensions', [data['latest_extension']])
     data['latest_extension'] = next(e for e in extensions
                                     if e['collection_date'] == '2026-10-14')
     data.pop('extensions', None)
@@ -120,6 +127,21 @@ class RenderResultsTests(unittest.TestCase):
         self.assertContains('Claude Haiku 5.5 is not ranked:', page)
         self.assertContains('No complete EPQ axis was available', page)
         self.assertContains('2026-10-29', page)
+
+    def test_four_collections_include_november_reruns_and_repeatability_tie(self):
+        data = json.loads((ROOT / 'data/five-run-summary.json').read_text())
+        page = self.render(data)
+        self.assertEqual(page.count('<tr data-distance='), 21)
+        self.assertContains('21 + Jev', page)
+        self.assertContains('5,726 / 5,880', page)
+        self.assertContains('4 testing cohorts', page)
+        self.assertContains('Cohort 4 data and calculation details', page)
+        self.assertContains('Llama 4 Maverick &amp; Mistral Large 2512', page)
+        self.assertContains('526/560 pairs', page)
+        self.assertContains('Muse Spark 1.3', page)
+        self.assertContains('OpenRouter reruns completed Muse and Mistral', page)
+        chart = re.search(r'const chartModels = (\[.*?\]);', page, re.S)
+        self.assertEqual(len(json.loads(chart.group(1))), 21)
 
 
 if __name__ == '__main__':
