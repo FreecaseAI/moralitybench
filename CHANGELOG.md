@@ -1,5 +1,10 @@
 # Changelog
 
+## 2026-11-17 (EPQ copyright redaction & third-party licensing)
+
+- Removed the `View all 20 EPQ items` drawer and `epqItems` JS array from `index.html`, redacted EPQ item questions/prompts from `gemini-answers.html`, and paraphrased EPQ #2 and EPQ #4 references in `scripts/update_results.py` (`re-rendered index.html`), preserving all scores, subscale definitions, and model responses.
+- Updated `LICENSE`, `README.md`, `#instruments`, and footer notices across the site to document `CC BY 4.0` attribution/modifications for MFQ-2 (Atari et al., 2023, `osf.io/srtxn/`) and explicitly exclude APA-copyrighted 1980 EPQ item texts and Alabama DIT-2 materials.
+
 ## 2026-11-12 (OpenRouter reruns: Muse Spark 1.3 & Mistral Large 2512)
 
 - Synced `data/five-run-summary.json` from `repeated-runs/2026-11-12/combined-five-run-summary.json` (21 LLMs + Jev, `5,726 / 5,880` usable LLM answers across four cohorts).

@@ -98,6 +98,11 @@ The DIT-2 was validated on people, and its dilemmas have been in print for decad
 - Working Academic Paper: [MoralityBench Paper](https://github.com/FreecaseAI/moralitybench-data/blob/master/paper/moralitybench.md)
 - Contact: [info@freecase.ai](mailto:info@freecase.ai)
 
-## License
+## License & Third-Party Instrument Notices
 
-The MoralityBench benchmark datasets, evaluation outputs, and documentation are licensed under the [Creative Commons Attribution 4.0 International License (CC BY 4.0)](https://creativecommons.org/licenses/by/4.0/).
+Original MoralityBench benchmark code, prompt wrappers, operational dilemma texts, evaluation outputs, and documentation are licensed under the [Creative Commons Attribution 4.0 International License (CC BY 4.0)](https://creativecommons.org/licenses/by/4.0/).
+
+Third-party psychological instruments remain subject to their respective terms:
+- **MFQ-2:** Adapted from Atari et al. (2023, *Journal of Personality and Social Psychology*, 125(5)), shared on [OSF](https://osf.io/srtxn/) under **CC BY 4.0** (modified with neutral entity/collective terminology and custom Purity items 6, 12, 30, and 36).
+- **EPQ:** Forsyth (1980, *Journal of Personality and Social Psychology*, 39(1), 175–184) remains **Copyright © 1980 American Psychological Association** and is excluded from `CC BY 4.0`; the 20 adapted item statements are withheld from public web display and open archives.
+- **DIT-2:** Copyrighted by the Center for the Study of Ethical Development, University of Alabama; excluded from `CC BY 4.0` with dilemma texts and item-level answers withheld.
