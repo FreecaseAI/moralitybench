@@ -96,7 +96,7 @@ The DIT-2 was validated on people, and its dilemmas have been in print for decad
 - Website Source: [FreecaseAI/moralitybench](https://github.com/FreecaseAI/moralitybench)
 - DIT-2 Scores: [Center-scored DIT-2 results](https://github.com/FreecaseAI/moralitybench-data/tree/master/dit2/2026-10-15)
 - Working Academic Paper: [MoralityBench Paper](https://github.com/FreecaseAI/moralitybench-data/blob/master/paper/moralitybench.md)
-- Contact: [info@freecase.ai](mailto:info@freecase.ai)
+- Contact: [GitHub Issues](https://github.com/FreecaseAI/moralitybench-data/issues)
 
 ## License & Third-Party Instrument Notices
 

@@ -40,11 +40,10 @@
       "publisher": { "@id": "https://moralitybench.ai/#publisher" }
     },
     {
-      "@type": "Organization",
+      "@type": "Person",
       "@id": "https://moralitybench.ai/#publisher",
-      "name": "Freecase.ai",
-      "url": "https://freecase.ai",
-      "email": "info@freecase.ai"
+      "name": "Jim Dawdy",
+      "url": "https://moralitybench.ai/"
     },
     {
       "@type": "Dataset",
@@ -238,14 +237,6 @@ tbody tr:hover { background: var(--surface2); }
 .items-content { display: none; margin-top: 1rem; }
 .items-content.open { display: block; }
 
-/* ── SPONSOR ── */
-.sponsor-bar { background: var(--surface2); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 1.25rem 2rem; display: flex; align-items: center; justify-content: space-between; margin: 2rem 0; }
-.sponsor-bar .sponsor-text { font-size: 0.85rem; color: var(--text2); }
-.sponsor-bar .sponsor-text strong { color: var(--text); }
-.sponsor-bar a { color: var(--accent); text-decoration: none; font-weight: 600; }
-.sponsor-bar a:hover { text-decoration: underline; }
-.sponsor-badge { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text3); font-weight: 600; }
-
 /* ── FOOTER ── */
 footer { border-top: 1px solid var(--border); padding: 2.5rem 0; margin-top: 3rem; }
 .footer-inner { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; }
@@ -318,7 +309,6 @@ thead th[aria-sort] button { color: var(--accent); }
     <a href="#trolley-testing">Trolley Testing</a>
     <a href="#dit2">DIT-2</a>
     <a href="#references">References</a>
-    <a href="https://freecase.ai" target="_blank" style="color:var(--accent);display:flex;flex-direction:column;align-items:flex-end;line-height:1.2">Sponsored by Freecase.ai →<span style="font-size:0.6rem;color:var(--text3);font-weight:400;letter-spacing:0.02em">Free Case Law Research</span></a>
   </div>
 </div>
 </nav>
@@ -1349,7 +1339,7 @@ Answer with only [A] or [B].</div>
       </div>
     </div>
   </div>
-  <p class="chart-note" style="margin-top:0.85rem"><strong>EPQ items withheld:</strong> Forsyth’s 20-item Ethics Position Questionnaire (<em>Journal of Personality and Social Psychology</em>, 1980, 39(1), 175–184) remains Copyright &copy; 1980 American Psychological Association. Idealism scores average items 1–10 and Relativism scores average items 11–20; adapted item wordings are omitted from public web display and open archives, and are available to qualified researchers for verification via <a href="mailto:info@freecase.ai">info@freecase.ai</a>.</p>
+  <p class="chart-note" style="margin-top:0.85rem"><strong>EPQ items withheld:</strong> Forsyth’s 20-item Ethics Position Questionnaire (<em>Journal of Personality and Social Psychology</em>, 1980, 39(1), 175–184) remains Copyright &copy; 1980 American Psychological Association. Idealism scores average items 1–10 and Relativism scores average items 11–20; adapted item wordings are omitted from public web display and open archives, and are available to qualified researchers for verification via <a href="https://github.com/FreecaseAI/moralitybench-data/issues" target="_blank" rel="noopener">GitHub Issues</a>.</p>
 </section>
 
 <!-- ════════════════ REFERENCES & INDEPENDENT RESEARCH DISCLAIMER ════════════════ -->
@@ -1385,7 +1375,7 @@ Answer with only [A] or [B].</div>
           <strong>Human Reference Norms:</strong> Zakharin, M., & Bates, T. C. (2026). <em>Moral Foundations Questionnaire 2 (MFQ-2) Norms and Psychometrics</em>. PLOS ONE (doi: 10.1371/journal.pone.0352584). Baseline US population foundation score means.
         </li>
         <li>
-          <strong>MoralityBench Working Paper:</strong> Freecase.ai Research. <em>MoralityBench: An Exploratory Evaluation of Large Language Models on Adapted Moral Psychology Instruments</em>. Working draft available in <a href="https://github.com/FreecaseAI/moralitybench-data/blob/master/paper/moralitybench.md" target="_blank">Markdown</a> and <a href="https://github.com/FreecaseAI/moralitybench-data/blob/master/paper/moralitybench.pdf" target="_blank">PDF</a>.
+          <strong>MoralityBench Working Paper:</strong> Dawdy, J. (MoralityBench). <em>MoralityBench: An Exploratory Evaluation of Large Language Models on Adapted Moral Psychology Instruments</em>. Working draft available in <a href="https://github.com/FreecaseAI/moralitybench-data/blob/master/paper/moralitybench.md" target="_blank">Markdown</a> and <a href="https://github.com/FreecaseAI/moralitybench-data/blob/master/paper/moralitybench.pdf" target="_blank">PDF</a>.
         </li>
       </ul>
     </div>
@@ -1416,32 +1406,20 @@ Answer with only [A] or [B].</div>
   </div>
 
   <div class="card" style="border-left: 4px solid var(--accent2); background: var(--surface2)">
-    <h3 style="font-size:1rem;margin-bottom:0.5rem;color:var(--text)">Independent Research & Conflict of Interest Disclaimer</h3>
+    <h3 style="font-size:1rem;margin-bottom:0.5rem;color:var(--text)">Independent Research &amp; Conflict of Interest Disclaimer</h3>
     <p style="font-size:0.88rem;color:var(--text2);line-height:1.65">
-      MoralityBench is an independent, non-commercial scientific research project designed and conducted entirely by <strong><a href="https://freecase.ai" target="_blank">Freecase.ai</a></strong>. Freecase.ai maintains no financial, commercial, corporate, or advisory affiliations with, nor does it receive funding, grants, sponsorships, or compute credits from the following artificial intelligence laboratories or model providers evaluated on this platform (including Anthropic, DeepSeek, Google, Meta, MiniMax, Mistral AI, Moonshot AI, OpenAI, TypeSafe, xAI, Xiaomi, and Zhipu AI), except that Freecase.ai is a recipient of the NVIDIA Inception Program, which provides benefits for AI-related startups; none of the benefits provided were used in this project. All API fees, compute resources, and analysis time are funded entirely by Freecase.ai to support transparent, empirical study of moral psychology and decision-making in artificial intelligence. For inquiries regarding this research, contact <a href="mailto:info@freecase.ai"><strong>info@freecase.ai</strong></a>.
+      MoralityBench is an independent, non-commercial scientific research project designed and conducted by Jim Dawdy. The project maintains no financial, commercial, corporate, or advisory affiliations with, nor does it receive funding, grants, sponsorships, or compute credits from, any of the evaluated artificial intelligence laboratories or model providers (including Anthropic, DeepSeek, Google, Meta, MiniMax, Mistral AI, Moonshot AI, OpenAI, TypeSafe, xAI, Xiaomi, and Zhipu AI). All API fees, compute resources, and analysis time are self-funded to support transparent, empirical study of moral psychology and decision-making in artificial intelligence. For inquiries regarding this research, open an issue in the <a href="https://github.com/FreecaseAI/moralitybench-data/issues" target="_blank" rel="noopener"><strong>GitHub repository</strong></a>.
     </p>
   </div>
 </section>
-
-<!-- ════════════════ SPONSOR ════════════════ -->
-<div class="sponsor-bar">
-  <div>
-    <div class="sponsor-badge">Sponsored by</div>
-    <div class="sponsor-text">
-      <a href="https://freecase.ai" target="_blank">Freecase.ai Legal Research</a>.
-      <strong>AI-powered legal research for attorneys, students, researchers, and the public.</strong>
-      Statutes, case law, and citator analysis (how later cases treat a case) at freecase.ai.
-    </div>
-  </div>
-</div>
 
 <!-- ════════════════ FOOTER ════════════════ -->
 <footer>
   <div class="container">
     <div class="footer-inner">
       <div class="footer-left">
-        MoralityBench.ai · Open benchmark for moral psychology in AI ·
-        Contact: <a href="mailto:info@freecase.ai" style="color:inherit">info@freecase.ai</a><br>
+        MoralityBench.ai · Independent open benchmark by Jim Dawdy ·
+        <a href="https://github.com/FreecaseAI/moralitybench-data/issues" target="_blank" rel="noopener" style="color:inherit">GitHub Issues</a><br>
         Original benchmark data &amp; code: <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener" style="color:inherit">CC BY 4.0</a> · MFQ-2 adapted under CC BY 4.0 (<a href="https://osf.io/srtxn/" target="_blank" rel="noopener" style="color:inherit">Atari et al., 2023</a>) · EPQ (Forsyth, 1980, &copy; APA) &amp; DIT-2 texts withheld
       </div>
       <div class="footer-right">
@@ -1449,8 +1427,6 @@ Answer with only [A] or [B].</div>
         <a href="#references">References & Data</a>
         <a href="https://github.com/FreecaseAI/moralitybench-data" target="_blank">GitHub</a>
         <a href="https://github.com/FreecaseAI/moralitybench-data/blob/master/paper/moralitybench.md">Working paper</a>
-        <a href="https://freecase.ai" target="_blank">Freecase.ai</a>
-        <a href="mailto:info@freecase.ai">Contact</a>
       </div>
     </div>
   </div>

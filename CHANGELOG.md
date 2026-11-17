@@ -1,5 +1,9 @@
 # Changelog
 
+## 2026-11-17 (Independent attribution & sponsor removal)
+
+- Removed Freecase.ai branding, navigation/footer sponsorship banners, `info@freecase.ai` addresses, and the NVIDIA Inception / corporate disclosure from `index.html`, `LICENSE`, and `README.md`, attributing the project to Jim Dawdy / MoralityBench with GitHub Issues links (`https://github.com/FreecaseAI/moralitybench-data/issues`); kept existing GitHub repository links and `paper/` drafts untouched.
+
 ## 2026-11-17 (EPQ copyright redaction & third-party licensing)
 
 - Removed the `View all 20 EPQ items` drawer and `epqItems` JS array from `index.html`, redacted EPQ item questions/prompts from `gemini-answers.html`, and paraphrased EPQ #2 and EPQ #4 references in `scripts/update_results.py` (`re-rendered index.html`), preserving all scores, subscale definitions, and model responses.
